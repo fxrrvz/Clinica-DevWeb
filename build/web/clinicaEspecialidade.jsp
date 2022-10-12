@@ -20,7 +20,7 @@
             <div class="form">
                 <form class="login-form">                    
                     <input type="text" placeholder="descrição"/>
-                    <button><a href="home.jsp">agendar</a></button>
+                    <button type="submit" formaction="home.jsp">agendar</button>
                 </form>
             </div>
         </div>

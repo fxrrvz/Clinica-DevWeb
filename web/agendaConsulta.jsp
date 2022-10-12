@@ -24,7 +24,7 @@
                     <input type="text" placeholder="Realizada"/>
                     <input type="text" placeholder="id paciente"/>
                     <input type="text" placeholder="id medico"/>
-                    <button><a href="home.jsp">agendar</a></button>
+                    <button type="submit" formaction="home.jsp">agendar</button>
                 </form>
             </div>
         </div>

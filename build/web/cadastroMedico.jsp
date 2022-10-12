@@ -25,7 +25,7 @@
                     <input type="text" placeholder="Especialidade"/>
                     <input type="password" placeholder="Senha"/>
                     <input type="password" placeholder="Confirmar senha"/>
-                    <button><a href="home.jsp">cadastrar</a></button>
+                    <button type="submit" formaction="home.jsp">cadastrar</button>
                 </form>
             </div>
         </div>

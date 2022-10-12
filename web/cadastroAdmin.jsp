@@ -23,7 +23,7 @@
                     <input type="text" placeholder="Nome"/>
                     <input type="text" placeholder="Senha"/>
                     <input type="text" placeholder="Confirmar senha"/>
-                    <button><a href="home.jsp">agendar</a></button>
+                    <button type="submit" formaction="home.jsp">agendar</button>
                 </form>
             </div>
         </div>

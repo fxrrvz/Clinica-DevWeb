@@ -20,7 +20,7 @@
             <div class="form">
                 <form class="login-form">
                     <input type="text" placeholder="Descrição"/>
-                    <button><a href="home.jsp">cadastrar</a></button>
+                    <button type="submit" formaction="home.jsp">cadastrar</button>
                 </form>
             </div>
         </div>

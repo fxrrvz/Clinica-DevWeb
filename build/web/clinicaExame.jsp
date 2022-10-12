@@ -21,7 +21,7 @@
                 <form class="login-form">                    
                     <input type="text" placeholder="id clinica"/>
                     <input type="text" placeholder="id consulta"/>
-                    <button><a href="home.jsp">agendar</a></button>
+                    <button type="submit" formaction="home.jsp">agendar</button>
                 </form>
             </div>
         </div>
