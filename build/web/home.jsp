@@ -21,7 +21,7 @@
             
                 <div class="collapse navbar-collapse">
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item">
+                        <li class="nav-item active">
                             <a class="nav-link" style="margin-right:30px;" href="cadastroPaciente.jsp">Cadastrar paciente</a>
                         </li>
                         <li class="nav-item">
@@ -45,11 +45,13 @@
                         <li class="nav-item">
                             <a class="nav-link" style="margin-right:30px;" href="clinicaEspecialidade.jsp">Clinica especialidade</a>
                         </li>
-                        
+                        <li class="nav-item">
+                            <a class="nav-link" style="margin-right:30px;" href="index.html">Logout</a>
+                        </li>
                     </ul>
                 </div>
             </nav>
         </header>
-        <h1 class="login-page" >Home</h1>
+        <h1>Home</h1>
     </body>
 </html>

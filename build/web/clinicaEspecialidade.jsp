@@ -16,7 +16,7 @@
     </head>
     <body>
         <div class="login-page">
-            <h1 class="titulo-login">Clinica especialidade</h1>
+            <h1>Clinica especialidade</h1>
             <div class="form">
                 <form class="login-form">                    
                     <input type="text" placeholder="descrição"/>
