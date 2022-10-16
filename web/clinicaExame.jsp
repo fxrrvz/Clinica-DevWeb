@@ -15,13 +15,14 @@
         <title>Clinica exame</title>
     </head>
     <body>
-        <div class="login-page">
-            <h1 class="titulo-login">Clinica exame</h1>
-            <div class="form">
-                <form class="login-form">                    
-                    <input type="text" placeholder="id clinica"/>
-                    <input type="text" placeholder="id consulta"/>
-                    <button type="submit" formaction="home.jsp">agendar</button>
+        <div class="container">
+            <h1 >Clinica exame</h1>
+            <div class="form-group">        
+                <form class="cadastro-form">
+                    <input type="text" placeholder="id clinica" class="form-control"/>
+                    <input type="text" placeholder="id consulta" class="form-control"/>
+                    <!--button type="submit" class="text-center" formaction="home.jsp">agendar</button-->
+                    <a href="home.jsp" class="btn btn-primary" style="background-color: #6610f2">agendar</a>
                 </form>
             </div>
         </div>
