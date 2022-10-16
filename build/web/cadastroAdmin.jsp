@@ -15,17 +15,31 @@
         <title>Cadastrar administrador</title>
     </head>
     <body>
-        <div class="login-page">
-            <h1 class="titulo-login">Cadastrar administrador</h1>
-            <div class="form">
-                <form class="login-form">                    
-                    <input type="text" placeholder="CPF"/>
-                    <input type="text" placeholder="Nome"/>
-                    <input type="text" placeholder="Senha"/>
-                    <input type="text" placeholder="Confirmar senha"/>
-                    <button type="submit" formaction="home.jsp">agendar</button>
-                </form>
+        <h1 class="titulo-login">Cadastrar administrador</h1>
+        <div class="container text-center">
+            <div class="row mt-5">
+                <div class="col-4"></div>
+                <div class="col-4">
+                    <div class="row">
+                        <form class="form-group">
+                            <div class="col-12">
+                                <input type="text" placeholder="Nome" class=" form-control mb-3" />
+                            </div>
+                            <div class="col-12">
+                                <input type="text" placeholder="CPF" class="form-control mb-3"/>
+                            </div>            
+                            <div class="col-12">  
+                                <input type="password" placeholder="Senha" class="form-control mb-3"/>
+                            </div>                                                            
+                            <div class="col-12">
+                                <input type="password" placeholder="Confirmar senha" class="form-control mb-3"/>
+                            </div>   
+                        </form>
+                    </div>
+                </div>
+                <div class="col-4"></div>
             </div>
+            <a href="home.jsp" class="btn btn-primary mt-3" style="background-color: #6610f2">Cadastrar</a>
         </div>
     </body>
 </html>

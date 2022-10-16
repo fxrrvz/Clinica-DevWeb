@@ -17,35 +17,35 @@
     <body>
         <div>
             <h1>Cadastrar paciente</h1>
-                <div class="container text-center">
-                    <div class="row mt-5">
-                        <div class="col-4"></div>
-                        <div class="col-4">
-                            <div class="row">
-                                <form class="form-group">
-                                    <div class="col-12">
-                                        <input type="text" placeholder="Nome" class=" form-control mb-3" />
-                                    </div>
-                                    <div class="col-12">
-                                        <input type="text" placeholder="CPF" class="form-control mb-3"/>
-                                    </div>
-                                    <div class="col-12">
-                                        <input type="text" placeholder="Autorizado" class="form-control mb-3"/>
-                                    </div>
-                                    <div class="col-12">
-                                        <input type="text" placeholder="Tipo plano" class="form-control mb-3"/>
-                                    </div>                
-                                    <div class="col-12">  
-                                        <input type="password" placeholder="Senha" class="form-control mb-3"/>
-                                    </div>                                                            
-                                    <div class="col-12">
-                                        <input type="password" placeholder="Confirmar senha" class="form-control mb-3"/>
-                                    </div>   
-                                </form>
-                            </div>
+            <div class="container text-center">
+                <div class="row mt-5">
+                    <div class="col-4"></div>
+                    <div class="col-4">
+                        <div class="row">
+                            <form class="form-group">
+                                <div class="col-12">
+                                    <input type="text" placeholder="Nome" class=" form-control mb-3" />
+                                </div>
+                                <div class="col-12">
+                                    <input type="text" placeholder="CPF" class="form-control mb-3"/>
+                                </div>
+                                <div class="col-12">
+                                    <input type="text" placeholder="Autorizado" class="form-control mb-3"/>
+                                </div>
+                                <div class="col-12">
+                                    <input type="text" placeholder="Tipo plano" class="form-control mb-3"/>
+                                </div>                
+                                <div class="col-12">  
+                                    <input type="password" placeholder="Senha" class="form-control mb-3"/>
+                                </div>                                                            
+                                <div class="col-12">
+                                    <input type="password" placeholder="Confirmar senha" class="form-control mb-3"/>
+                                </div>   
+                            </form>
                         </div>
-                        <div class="col-4"></div>
                     </div>
+                    <div class="col-4"></div>
+                </div>
                 <a href="home.jsp" class="btn btn-primary mt-3" style="background-color: #6610f2">Cadastrar</a>
             </div>
         </div>

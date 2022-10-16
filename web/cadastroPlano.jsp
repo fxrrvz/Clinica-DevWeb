@@ -15,14 +15,22 @@
         <title>Cadastrar plano</title>
     </head>
     <body>
-        <div class="login-page">
-            <h1 class="titulo-login">Cadastrar plano</h1>
-            <div class="form">
-                <form class="login-form">
-                    <input type="text" placeholder="Descrição"/>
-                    <button type="submit" formaction="home.jsp">cadastrar</button>
-                </form>
+        <h1 class="titulo-login">Cadastrar plano</h1>
+        <div class="container text-center">
+            <div class="row mt-5">
+                <div class="col-4"></div>
+                <div class="col-4">
+                    <div class="row">
+                        <form class="form-group">
+                            <div class="col-12">
+                                <textarea type="text" placeholder="Descrição" class=" form-control mb-3"></textarea>
+                            </div> 
+                        </form>
+                    </div>
+                </div>
+                <div class="col-4"></div>
             </div>
+            <a href="home.jsp" class="btn btn-primary mt-3" style="background-color: #6610f2">Cadastrar</a>
         </div>
     </body>
 </html>

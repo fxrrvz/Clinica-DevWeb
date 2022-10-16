@@ -15,18 +15,37 @@
         <title>Agendar consulta</title>
     </head>
     <body>
-        <div class="login-page">
-            <h1 class="titulo-login">Agendar consulta</h1>
-            <div class="form">
-                <form class="login-form">                    
-                    <input type="text" placeholder="Descrição"/>
-                    <input type="text" placeholder="Data"/>
-                    <input type="text" placeholder="Realizada"/>
-                    <input type="text" placeholder="id paciente"/>
-                    <input type="text" placeholder="id medico"/>
-                    <button type="submit" formaction="home.jsp">agendar</button>
-                </form>
+        <h1 class="titulo-login">Agendar consulta</h1>
+        <div class="container text-center">
+            <div class="row mt-5">
+                <div class="col-4"></div>
+                <div class="col-4">
+                    <div class="row">
+                        <form class="form-group">
+                            <div class="col-12">
+                                <input type="date" placeholder="Data" class="form-control mb-3"/>
+                            </div>   
+                            <div class="col-12">
+                                <input type="time" placeholder="Horário" class="form-control mb-3"/>
+                            </div> 
+                            <div class="col-12">  
+                                <input type="text" placeholder="Realizada" class="form-control mb-3"/>
+                            </div>                                                            
+                            <div class="col-12">
+                                <input type="text" placeholder="ID Paciente" class="form-control mb-3"/>
+                            </div>   
+                            <div class="col-12">
+                                <input type="text" placeholder="ID Médico" class="form-control mb-3"/>
+                            </div>      
+                            <div class="col-12">
+                                <textarea type="text" placeholder="Descrição" class=" form-control mb-3"></textarea>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-4"></div>
             </div>
+            <a href="home.jsp" class="btn btn-primary mt-1" style="background-color: #6610f2">Agendar</a>
         </div>
     </body>
 </html>

@@ -15,16 +15,25 @@
         <title>Clinica exame</title>
     </head>
     <body>
-        <div class="container">
-            <h1 >Clinica exame</h1>
-            <div class="form-group">        
-                <form class="cadastro-form">
-                    <input type="text" placeholder="id clinica" class="form-control"/>
-                    <input type="text" placeholder="id consulta" class="form-control"/>
-                    <!--button type="submit" class="text-center" formaction="home.jsp">agendar</button-->
-                    <a href="home.jsp" class="btn btn-primary" style="background-color: #6610f2">agendar</a>
-                </form>
+        <h1>Clínica exame</h1>
+        <div class="container text-center">
+            <div class="row mt-5">
+                <div class="col-4"></div>
+                <div class="col-4">
+                    <div class="row">
+                        <form class="form-group">
+                            <div class="col-12">
+                                <input type="text" placeholder="ID Clínica" class=" form-control mb-3" />
+                            </div>
+                            <div class="col-12">
+                                <input type="text" placeholder="ID Consulta" class="form-control mb-3"/>
+                            </div>   
+                        </form>
+                    </div>
+                </div>
+                <div class="col-4"></div>
             </div>
+            <a href="home.jsp" class="btn btn-primary mt-3" style="background-color: #6610f2">Cadastrar</a>
         </div>
     </body>
 </html>
