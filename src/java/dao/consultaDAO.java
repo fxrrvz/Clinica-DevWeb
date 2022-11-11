@@ -22,19 +22,18 @@ import connection.ConnectionFactory;
  */
 public class consultaDAO {
     
-    public void create(Consulta med){
+    public void create(Consulta consulta){
         
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         
         try {
-            stmt = con.prepareStatement("INSERT INTO VALUES(?,?,?,?,?,?)");
-            stmt.setInt(1, med.getId());
-            stmt.setString(2, med.getData());
-            stmt.setString(3, med.getDescricao());
-            stmt.setString(4, med.getRealizada());
-            stmt.setInt(5, med.getIdMedico());
-            stmt.setInt(6, med.getIdPaciente());
+            stmt = con.prepareStatement("INSERT INTO consulta(data, descricao, realizada, idmedico, idpaciente) VALUES(?,?,?,?,?)");
+            stmt.setString(1, consulta.getData());
+            stmt.setString(2, consulta.getDescricao());
+            stmt.setString(3, consulta.getRealizada());
+            stmt.setInt(4, consulta.getIdMedico());
+            stmt.setInt(5, consulta.getIdPaciente());
             
             stmt.executeUpdate();
             

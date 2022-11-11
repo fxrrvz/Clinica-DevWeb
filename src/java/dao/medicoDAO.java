@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import bean.Medico;
+import bean.classes_usuario.Medico;
 import connection.ConnectionFactory;
 /**
  *
@@ -64,7 +64,8 @@ public class medicoDAO {
             
             while (rs.next()) {
                 
-                Medico medico = new Medico(rs.getString("nome"),
+                Medico medico = new Medico(rs.getInt("id"),
+                                           rs.getString("nome"),
                                            rs.getString("cpf"),
                                            rs.getString("senha"));
                 medico.setCrm(rs.getInt("crm"));

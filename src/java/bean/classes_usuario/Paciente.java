@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package bean;
+package bean.classes_usuario;
 
 /**
  *
@@ -11,8 +11,8 @@ package bean;
  */
 public class Paciente extends Usuario{
 
-    public Paciente(String _nome, String _cpf, String _senha) {
-        super(_nome, _cpf, _senha);
+    public Paciente(int _id, String _nome, String _cpf, String _senha) {
+        super(_id, _nome, _cpf, _senha);
     }
     
     public String autorizado;

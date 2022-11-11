@@ -1,4 +1,3 @@
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -15,25 +14,23 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import bean.classes_usuario.Administrador;
+import bean.Exames;
 import connection.ConnectionFactory;
 /**
  *
  * @author Ferraz-PC
  */
-public class administradorDAO {
+public class examesDAO {
     
-    public void create(Administrador adm){
+    public void create(Exames exam){
         
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         
         try {
-            stmt = con.prepareStatement("INSERT INTO administrador(nome, cpf, senha)" +
-                                        " VALUES(?,?,?,?)");
-            stmt.setString(2, adm.getNome());
-            stmt.setString(3, adm.getCpf());
-            stmt.setString(4, adm.getSenha());
+            stmt = con.prepareStatement("INSERT INTO exames(idconsulta, idtipoexame) VALUES(?,?)");
+            stmt.setInt(1, exam.getIdConsulta());
+            stmt.setInt(2, exam.getIdTipoExame());
             
             stmt.executeUpdate();
             
@@ -49,28 +46,27 @@ public class administradorDAO {
         
     }
     
-    public List<Administrador> read(){
+    public List<Exames> read(){
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        List<Administrador> lista = new ArrayList<>();
+        List<Exames> lista = new ArrayList<>();
         
         try {
-            stmt = con.prepareStatement("SELECT * FROM administrador");
+            stmt = con.prepareStatement("SELECT * FROM Consulta");
             rs = stmt.executeQuery();
             
             while (rs.next()) {
                 
-                Administrador administrador = new Administrador(rs.getInt("id"),
-                                                                rs.getString("nome"),
-                                                                rs.getString("cpf"),
-                                                                rs.getString("senha"));
-                lista.add(administrador);                
+                Exames exames = new Exames();
+                exames.setId(rs.getInt("id"));
+                exames.setIdConsulta(rs.getInt("idconsulta"));
+                exames.setIdTipoExame(rs.getInt("idtipoexame"));
+                lista.add(exames);                
             }
-            
-            
+           
         } catch (SQLException ex) {
-            Logger.getLogger(administradorDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(consultaDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return lista;
@@ -79,3 +75,8 @@ public class administradorDAO {
     
     
 }
+
+
+/*public ConsultaDAO(Usuario user, String banco) {
+        super.create(user, banco);
+    }*/

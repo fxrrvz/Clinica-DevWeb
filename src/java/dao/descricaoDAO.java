@@ -1,4 +1,3 @@
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -15,25 +14,29 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import bean.classes_usuario.Administrador;
+import bean.classes_desc.Descricao;
 import connection.ConnectionFactory;
 /**
  *
  * @author Ferraz-PC
  */
-public class administradorDAO {
+
+////////////////////////////////////////////////////////////////////////////////////////////
+/////////// descricaoDAO é usada pelas classes especialidade/tipoexame/tipoplano ///////////
+////////////////////////////////////////////////////////////////////////////////////////////
+
+public class descricaoDAO {
     
-    public void create(Administrador adm){
+    public void create(Descricao desc, String banco){
         
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         
         try {
-            stmt = con.prepareStatement("INSERT INTO administrador(nome, cpf, senha)" +
-                                        " VALUES(?,?,?,?)");
-            stmt.setString(2, adm.getNome());
-            stmt.setString(3, adm.getCpf());
-            stmt.setString(4, adm.getSenha());
+            stmt = con.prepareStatement("INSERT INTO "
+                                        + banco + "(descricao)"
+                                        +" VALUES(?)");
+            stmt.setString(1, desc.getDescricao());
             
             stmt.executeUpdate();
             
@@ -49,28 +52,25 @@ public class administradorDAO {
         
     }
     
-    public List<Administrador> read(){
+    public List<Descricao> read(){
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        List<Administrador> lista = new ArrayList<>();
+        List<Descricao> lista = new ArrayList<>();
         
         try {
-            stmt = con.prepareStatement("SELECT * FROM administrador");
+            stmt = con.prepareStatement("SELECT * FROM Consulta");
             rs = stmt.executeQuery();
             
             while (rs.next()) {
                 
-                Administrador administrador = new Administrador(rs.getInt("id"),
-                                                                rs.getString("nome"),
-                                                                rs.getString("cpf"),
-                                                                rs.getString("senha"));
-                lista.add(administrador);                
+                Descricao desc = new Descricao();
+                desc.setDescricao(rs.getString("descricao"));
+                lista.add(desc);                
             }
-            
-            
+           
         } catch (SQLException ex) {
-            Logger.getLogger(administradorDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(descricaoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return lista;
@@ -79,3 +79,8 @@ public class administradorDAO {
     
     
 }
+
+
+/*public ConsultaDAO(Usuario user, String banco) {
+        super.create(user, banco);
+    }*/

@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import bean.Usuario;
+import bean.classes_usuario.Usuario;
 import connection.ConnectionFactory;
 /**
  *
@@ -59,7 +59,8 @@ public class usuarioDAO {
             
             while (rs.next()) {
                 
-                Usuario usuario = new Usuario(rs.getString("nome"),
+                Usuario usuario = new Usuario(rs.getInt("id"),
+                                              rs.getString("nome"),
                                               rs.getString("cpf"),
                                               rs.getString("senha"));
                 lista.add(usuario);                

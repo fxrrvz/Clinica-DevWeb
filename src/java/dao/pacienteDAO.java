@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import bean.Paciente;
+import bean.classes_usuario.Paciente;
 import connection.ConnectionFactory;
 /**
  *
@@ -30,7 +30,7 @@ public class pacienteDAO {
         
         try {
             stmt = con.prepareStatement("INSERT INTO paciente(nome, cpf, senha, autorizado, idtipoplano)"+
-                                        " VALUES(?,?,?,?,?,?)");
+                                        " VALUES(?,?,?,?,?)");
             stmt.setString(1, pc.getNome());
             stmt.setString(2, pc.getCpf());
             stmt.setString(3, pc.getSenha());
@@ -63,7 +63,8 @@ public class pacienteDAO {
             
             while (rs.next()) {
                 
-                Paciente paciente = new Paciente(rs.getString("nome"),
+                Paciente paciente = new Paciente(rs.getInt("id"),
+                                                 rs.getString("nome"),
                                                  rs.getString("cpf"),
                                                  rs.getString("senha"));
                 paciente.setAutorizado(rs.getString("autorizado"));
