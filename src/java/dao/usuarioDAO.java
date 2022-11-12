@@ -75,5 +75,31 @@ public class usuarioDAO {
         
     }
     
+    public Usuario logar(Usuario usuario) throws Exception {
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        try {
+            stmt = con.prepareStatement("SELECT * FROM usuarios WHERE cpf=? and senha =? LIMIT 1");
+            stmt.setString(1, usuario.getCpf());
+            stmt.setString(2, usuario.getSenha());
+            ResultSet resultado = stmt.executeQuery();
+            if (resultado != null) {
+                while (resultado.next()) {
+                    usuario.setId(Integer.parseInt(resultado.getString("ID")));
+                    usuario.setNome(resultado.getString("NOME"));
+                    usuario.setCpf(resultado.getString("CPF"));
+                    usuario.setSenha(resultado.getString("SENHA"));
+                }
+            }
+            return usuario;
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            throw new RuntimeException("Query de select (get) incorreta");
+        } finally {
+            ConnectionFactory.closeConnection(con, stmt);
+        }
+    }
+    
     
 }

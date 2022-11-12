@@ -22,6 +22,11 @@ public class Usuario {
         this.senha = senha;
     }
 
+    public Usuario(String cpf, String senha) {
+        this.cpf = cpf;
+        this.senha = senha;
+    }
+    
     public int getId() {
         return id;
     }
