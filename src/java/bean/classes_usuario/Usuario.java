@@ -27,6 +27,13 @@ public class Usuario {
         this.senha = senha;
     }
     
+     public Usuario() {
+        this.id = 0;
+        this.nome = "";
+        this.cpf = "";
+        this.senha = "";
+    }
+    
     public int getId() {
         return id;
     }
