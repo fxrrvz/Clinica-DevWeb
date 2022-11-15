@@ -23,7 +23,7 @@ public class efetuarLogin extends HttpServlet {
         if (cpf_user.isEmpty() || senha_user.isEmpty()) {
             // dados não foram preenchidos retorna ao formulário
             request.setAttribute("msgError", "Usuário e/ou senha incorreto");
-            RequestDispatcher rd = request.getRequestDispatcher("/formLogin.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
             rd.forward(request, response);
         } else {
 
@@ -43,7 +43,7 @@ public class efetuarLogin extends HttpServlet {
 
             } else {
                 request.setAttribute("msgError", "Usuário e/ou senha incorreto");
-                RequestDispatcher rd = request.getRequestDispatcher("/formLogin.jsp");
+                RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
                 rd.forward(request, response);
             }
 

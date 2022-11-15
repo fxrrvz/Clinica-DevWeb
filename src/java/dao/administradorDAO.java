@@ -31,9 +31,9 @@ public class administradorDAO {
         try {
             stmt = con.prepareStatement("INSERT INTO administrador(nome, cpf, senha)" +
                                         " VALUES(?,?,?,?)");
-            stmt.setString(2, adm.getNome());
-            stmt.setString(3, adm.getCpf());
-            stmt.setString(4, adm.getSenha());
+            stmt.setString(1, adm.getNome());
+            stmt.setString(2, adm.getCpf());
+            stmt.setString(3, adm.getSenha());
             
             stmt.executeUpdate();
             
@@ -45,7 +45,6 @@ public class administradorDAO {
         }finally{
             ConnectionFactory.closeConnection(con, stmt);
         }
-        
         
     }
     

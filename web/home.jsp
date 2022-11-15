@@ -46,7 +46,7 @@
                             <a class="nav-link" style="margin-right:30px;" href="clinicaEspecialidade.jsp">Clinica especialidade</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" style="margin-right:30px;" href="index.html">Logout</a>
+                            <a class="nav-link" style="margin-right:30px;" href="index.jsp">Logout</a>
                         </li>
                     </ul>
                 </div>
