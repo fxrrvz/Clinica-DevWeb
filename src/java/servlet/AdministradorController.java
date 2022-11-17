@@ -8,10 +8,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import dao.administradorDAO;
-import bean.classes_usuario.Administrador;
+import aplicacao.Administrador;
 import javax.servlet.RequestDispatcher;
 
-@WebServlet(name = "administradorController", urlPatterns = {"/administradorController"})
+@WebServlet(name = "AdministradorController", urlPatterns = {"/AdministradorController"})
 public class AdministradorController extends HttpServlet {
 
     @Override
@@ -54,7 +54,7 @@ public class AdministradorController extends HttpServlet {
         request.setAttribute("msgError", "");
         request.setAttribute("acao", acao);
 
-        rd = request.getRequestDispatcher("/view/administrador/formadministrador.jsp");
+        rd = request.getRequestDispatcher("/login.jsp");
         rd.forward(request, response);
 
     }
@@ -94,7 +94,7 @@ public class AdministradorController extends HttpServlet {
             request.setAttribute("msgError", "É necessário preencher todos os campos");
             request.setAttribute("administrador", administrador);
 
-            rd = request.getRequestDispatcher("/view/administrador/formadministrador.jsp");
+            rd = request.getRequestDispatcher("/login.jsp");
             rd.forward(request, response);
 
         } else {
@@ -123,7 +123,7 @@ public class AdministradorController extends HttpServlet {
                 ArrayList<Administrador> listaadministrador = administradorDAO.read();
                 request.setAttribute("listaadministrador", listaadministrador);
 
-                rd = request.getRequestDispatcher("/view/administrador/listaadministradorr.jsp");
+                rd = request.getRequestDispatcher("/login.jsp");
                 rd.forward(request, response);
 
             } catch (Exception ex) {

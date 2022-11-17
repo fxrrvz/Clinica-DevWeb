@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import bean.classes_usuario.Paciente;
+import aplicacao.Paciente;
 import connection.ConnectionFactory;
 /**
  *
@@ -63,10 +63,11 @@ public class pacienteDAO {
             
             while (rs.next()) {
                 
-                Paciente paciente = new Paciente(rs.getInt("id"),
-                                                 rs.getString("nome"),
-                                                 rs.getString("cpf"),
-                                                 rs.getString("senha"));
+                Paciente paciente = new Paciente();
+                paciente.setId(rs.getInt("id"));
+                paciente.setNome(rs.getString("nome"));
+                paciente.setCpf(rs.getString("cpf"));
+                paciente.setSenha(rs.getString("senha"));
                 paciente.setAutorizado(rs.getString("autorizado"));
                 paciente.setIdTipoPlano(rs.getInt("idtipoplano"));
                 lista.add(paciente);                

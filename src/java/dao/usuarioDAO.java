@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import bean.classes_usuario.Usuario;
+import aplicacao.Usuario;
 import connection.ConnectionFactory;
 /**
  *
@@ -22,16 +22,19 @@ import connection.ConnectionFactory;
  */
 public class usuarioDAO {
     
+    
+    
     public void create(Usuario user, String banco){
         
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         
         try {
-            stmt = con.prepareStatement("INSERT INTO "+ banco +" VALUES(?,?,?)");
-            stmt.setString(1, user.getNome());
-            stmt.setString(2, user.getCpf());
-            stmt.setString(3, user.getSenha());
+            stmt = con.prepareStatement("INSERT INTO ? VALUES ?,?,?,?");
+            stmt.setString(1, banco);
+            stmt.setString(2, user.getNome());
+            stmt.setString(3, user.getCpf());
+            stmt.setString(4, user.getSenha());
             
             stmt.executeUpdate();
             
@@ -47,14 +50,15 @@ public class usuarioDAO {
         
     }
     
-    public List<Usuario> read(){
+    public List<Usuario> read(String banco){
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
         List<Usuario> lista = new ArrayList<>();
         
         try {
-            stmt = con.prepareStatement("SELECT * FROM Usuario");
+            stmt = con.prepareStatement("SELECT * FROM ?");
+            stmt.setString(1, banco);
             rs = stmt.executeQuery();
             
             while (rs.next()) {
@@ -75,31 +79,31 @@ public class usuarioDAO {
         
     }
     
-    public Usuario logar(Usuario usuario) throws Exception {
+    public Usuario logar(Usuario usuario, String banco) throws Exception {
         Connection con = ConnectionFactory.getConnection();
-        PreparedStatement stmt = null;
+        PreparedStatement stmt;
+        ResultSet resultado;
         try {
-            stmt = con.prepareStatement("SELECT * FROM usuarios WHERE cpf=? and senha =? LIMIT 1");
-            stmt.setString(1, usuario.getCpf());
-            stmt.setString(2, usuario.getSenha());
-            ResultSet resultado = stmt.executeQuery();
+            stmt = con.prepareStatement("SELECT * FROM ? WHERE cpf=? and senha=?");
+            stmt.setString(1, banco);
+            stmt.setString(2, usuario.getCpf());
+            stmt.setString(3, usuario.getSenha());
+            resultado = stmt.executeQuery();
+            Usuario usuarioObtido = new Usuario();
             if (resultado != null) {
                 while (resultado.next()) {
-                    usuario.setId(Integer.parseInt(resultado.getString("ID")));
-                    usuario.setNome(resultado.getString("NOME"));
-                    usuario.setCpf(resultado.getString("CPF"));
-                    usuario.setSenha(resultado.getString("SENHA"));
+                    usuarioObtido.setId(Integer.parseInt(resultado.getString("ID")));
+                    usuarioObtido.setNome(resultado.getString("NOME"));
+                    usuarioObtido.setCpf(resultado.getString("CPF"));
+                    usuarioObtido.setSenha(resultado.getString("SENHA"));
                 }
             }
-            return usuario;
-
+             return usuarioObtido;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             throw new RuntimeException("Query de select (get) incorreta");
         } finally {
-            ConnectionFactory.closeConnection(con, stmt);
+            ConnectionFactory.closeConnection(con);
         }
-    }
-    
-    
+    }    
 }

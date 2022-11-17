@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  * @author Ferraz-PC
  */
 public class ConnectionFactory {
-    private final static String DRIVER = "com.mysql.cj.jdbc.Driver";
+    private final static String DRIVER = "mysql-connector-java-5.1.23-bin";
     private final static String URL = "jdbc:mysql://localhost:3306/clinica";
     private final static String USER = "root";
     private final static String PASS = "";

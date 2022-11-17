@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import bean.classes_usuario.Administrador;
+import aplicacao.Administrador;
 import connection.ConnectionFactory;
 /**
  *
@@ -101,10 +101,10 @@ public class administradorDAO {
         }
     }
     
-    public Administrador Logar(Administrador adm) throws Exception {
+    public Administrador logar(Administrador adm) throws Exception {
         Connection con = ConnectionFactory.getConnection();
         try {
-            PreparedStatement stmt = con.prepareStatement("SELECT * FROM usuarios WHERE cpf=? and senha =? LIMIT 1");
+            PreparedStatement stmt = con.prepareStatement("SELECT * FROM administrador WHERE cpf=? and senha =? LIMIT 1");
             stmt.setString(1, adm.getCpf());
             stmt.setString(2, adm.getSenha());
             ResultSet resultado = stmt.executeQuery();
