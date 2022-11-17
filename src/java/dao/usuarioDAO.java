@@ -30,7 +30,7 @@ public class usuarioDAO {
         PreparedStatement stmt = null;
         
         try {
-            stmt = con.prepareStatement("INSERT INTO ? VALUES ?,?,?,?");
+            stmt = con.prepareStatement("INSERT INTO (?) VALUES (?,?,?,?)");
             stmt.setString(1, banco);
             stmt.setString(2, user.getNome());
             stmt.setString(3, user.getCpf());
@@ -52,8 +52,8 @@ public class usuarioDAO {
     
     public List<Usuario> read(String banco){
         Connection con = ConnectionFactory.getConnection();
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
+        PreparedStatement stmt;
+        ResultSet rs;
         List<Usuario> lista = new ArrayList<>();
         
         try {
@@ -80,22 +80,23 @@ public class usuarioDAO {
     }
     
     public Usuario logar(Usuario usuario, String banco) throws Exception {
+        System.out.print("banco "+ banco + "\n");
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt;
         ResultSet resultado;
         try {
-            stmt = con.prepareStatement("SELECT * FROM ? WHERE cpf=? and senha=?");
-            stmt.setString(1, banco);
-            stmt.setString(2, usuario.getCpf());
-            stmt.setString(3, usuario.getSenha());
+            stmt = con.prepareStatement(String.format("SELECT * FROM %s WHERE cpf=? and senha=?;", banco));
+            stmt.setString(1, usuario.getCpf());
+            stmt.setString(2, usuario.getSenha());
+            
             resultado = stmt.executeQuery();
             Usuario usuarioObtido = new Usuario();
             if (resultado != null) {
                 while (resultado.next()) {
-                    usuarioObtido.setId(Integer.parseInt(resultado.getString("ID")));
-                    usuarioObtido.setNome(resultado.getString("NOME"));
-                    usuarioObtido.setCpf(resultado.getString("CPF"));
-                    usuarioObtido.setSenha(resultado.getString("SENHA"));
+                    usuarioObtido.setId(Integer.parseInt(resultado.getString("id")));
+                    usuarioObtido.setNome(resultado.getString("nome"));
+                    usuarioObtido.setCpf(resultado.getString("cpf"));
+                    usuarioObtido.setSenha(resultado.getString("senha"));
                 }
             }
              return usuarioObtido;

@@ -44,7 +44,7 @@ public class AutenticaController extends HttpServlet{
     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException {
 
         RequestDispatcher rd;
         // pegando os parâmetros do request
@@ -72,8 +72,8 @@ public class AutenticaController extends HttpServlet{
             if (usuarioObtido.getId() != 0) {
                 HttpSession session = request.getSession();
                 session.setAttribute("usuario", usuarioObtido);
-                
-                rd = request.getRequestDispatcher("/dashboard/areaRestrita.jsp");
+                System.out.print(usuarioObtido.getNome() + "\n");
+                rd = request.getRequestDispatcher("/DashboardController");
                 rd.forward(request, response);
                 
          

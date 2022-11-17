@@ -27,7 +27,11 @@ and open the template in the editor.
                         </div>
                 <% }%>
                 <form class="form-group" action="AutenticaController?acao=Logar" method="POST">
-                    <a name="perfil">administrador</a>
+                   <select class="form-select form-control-sm mb-3" multiple name="perfil" aria-label="multiple select example">
+                        <option value="administrador">administrador</option>
+                        <option value="paciente">paciente</option>
+                        <option value="medico">medico</option>
+                    </select>
                     <input type="text" placeholder="CPF" name="cpf" class="form-control mb-3"/>
                     <input type="password" placeholder="Senha" name="senha" class="form-control mb-3"/>
                     <button type="submit">Login<!--a href="#" class="btn btn-primary mr-3" style="background-color: #6610f2">Login</a--></button>
