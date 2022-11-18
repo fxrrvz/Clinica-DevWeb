@@ -15,6 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import aplicacao.Consulta;
+import aplicacao.Paciente;
 import connection.ConnectionFactory;
 /**
  *
@@ -107,6 +108,40 @@ public class consultaDAO {
         }
     }
     
+    public void update(Consulta consulta) throws Exception {
+        Connection con = ConnectionFactory.getConnection();
+        try {
+            PreparedStatement sql = con.prepareStatement("UPDATE consulta SET data = ?, descricao = ?, realizada = ?, idmedico = ?, idpaciente = ?  WHERE ID = ?;");
+            sql.setString(1, consulta.getData());
+            sql.setString(2, consulta.getDescricao());
+            sql.setString(4, consulta.getRealizada());
+            sql.setInt(5, consulta.getIdMedico());
+            sql.setInt(6, consulta.getIdPaciente());
+            sql.setInt(7, consulta.getId());
+            sql.executeUpdate();
+
+        } catch (SQLException ex) {
+            System.out.print(ex);
+            throw new RuntimeException("Query de update (alterar) incorreta");
+        } finally {
+            ConnectionFactory.closeConnection(con);
+        }
+    }
+
+    public void delete(Consulta consulta) throws Exception {
+        Connection con = ConnectionFactory.getConnection();
+        try {
+            PreparedStatement sql = con.prepareStatement("DELETE FROM consulta WHERE ID = ?;");
+            sql.setInt(1, consulta.getId());
+            sql.executeUpdate();
+
+        } catch (SQLException ex) {
+            System.out.print(ex);
+            throw new RuntimeException("Query de delete (excluir) incorreta");
+        } finally {
+            ConnectionFactory.closeConnection(con);
+        }
+    }
 }
 
 

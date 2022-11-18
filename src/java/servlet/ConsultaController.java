@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "ConsultaController", urlPatterns = {"/ConsultaController"})
 public class ConsultaController extends HttpServlet {
-    String view = "/view/usuario/agendaConsulta.jsp";
+    String view = "/view/agendaConsulta.jsp";
     String home = "/view/home.jsp";
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -34,6 +34,10 @@ public class ConsultaController extends HttpServlet {
         consultaDAO consultaDAO = new consultaDAO();
         RequestDispatcher rd;
         switch (acao) {
+            case "Incluir":
+                rd = request.getRequestDispatcher(view);
+                rd.forward(request, response);
+                break;
             case "Listar":
                 try {
                     ArrayList<aplicacao.Consulta> listaConsultas = consultaDAO.read();
@@ -73,56 +77,56 @@ public class ConsultaController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        int id = Integer.parseInt(request.getParameter("id"));
         String acao = request.getParameter("acao");
-        String nome_user = request.getParameter("nome");
-        String cpf_user = request.getParameter("cpf");
-        String senha_user = request.getParameter("senha");
-        int itp_user = Integer.parseInt(request.getParameter("idtipoplano"));
-        String csenha_user = request.getParameter("csenha");
+        String data = request.getParameter("data");
+        String descricao= request.getParameter("descricao");
+        String realizada = request.getParameter("realizada");
+        int idmedico = Integer.parseInt(request.getParameter("idmedico"));
+        int idpaciente = Integer.parseInt(request.getParameter("idpaciente"));
 
         RequestDispatcher rd;
 
-        if (nome_user.isEmpty() || cpf_user.isEmpty() || senha_user.isEmpty() || itp_user == 0) {
+        if (data.isEmpty() || descricao.isEmpty() || idmedico == 0 || idpaciente == 0) {
 
-            Consulta consulta = new Consulta(nome_user, cpf_user);
+            Consulta consulta = new Consulta(data, descricao, idmedico, idpaciente);
             switch (acao) {
                 case "Incluir":
                     request.setAttribute("acao", "Incluir");
                     break;
                 case "Alterar":
-                /*case "Excluir":
+                case "Excluir":
                     try {
-                        pacienteDAO pacienteDAO = new pacienteDAO();
-                        paciente = pacienteDAO.getPaciente(id);
+                        consultaDAO consultaDAO = new consultaDAO();
+                        consulta = consultaDAO.getConsulta(id);
                     } catch (Exception ex) {
                         System.out.println(ex.getMessage());
                         throw new RuntimeException("Falha em uma query para cadastro de usuario");
                     }
-                    break;
-                */    
+                    break;   
             }
 
             request.setAttribute("msgError", "É necessário preencher todos os campos");
-            request.setAttribute("usuario", usuario);
+            request.setAttribute("consulta", consulta);
             rd = request.getRequestDispatcher(view);
             rd.forward(request, response);
 
         } else {
-            Paciente paciente = new Paciente(nome_user, cpf_user, senha_user, itp_user);
-            pacienteDAO pacienteDAO = new pacienteDAO();
+            Consulta consulta = new Consulta(data, descricao, idmedico, idpaciente);
+            consultaDAO consultaDAO = new consultaDAO();
 
             try {
                 switch (acao) {
                     case "Incluir":
-                        pacienteDAO.create(paciente);
+                        consultaDAO.create(consulta);
                         request.setAttribute("msgOperacaoRealizada", "Cadastro realizado com sucesso!");
                         break;
                     case "Alterar":
-                        pacienteDAO.update(paciente);
+                        consultaDAO.update(consulta);
                         request.setAttribute("msgOperacaoRealizada", "Alteração realizada com sucesso");
                         break;
                     case "Excluir":
-                        pacienteDAO.delete(paciente);
+                        consultaDAO.delete(consulta);
                         request.setAttribute("msgOperacaoRealizada", "Exclusão realizada com sucesso");
                         break;
                 }
@@ -130,7 +134,7 @@ public class ConsultaController extends HttpServlet {
                 ArrayList<aplicacao.Paciente> listaUsuarios = pacienteDAO.ListaDeUsuarios();
                 request.setAttribute("listaUsuarios", listaUsuarios);
                 */
-                rd = request.getRequestDispatcher("/view/login.jsp");
+                rd = request.getRequestDispatcher(home);
                 rd.forward(request, response);
                 
             } catch (Exception ex) {

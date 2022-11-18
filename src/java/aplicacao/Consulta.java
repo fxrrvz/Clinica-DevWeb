@@ -18,6 +18,35 @@ public class Consulta{
     public int idmedico;
     public int idpaciente;
 
+    public Consulta(String data, String descricao, int idmedico, int idpaciente) {
+        this.id = 0;
+        this.data = data;
+        this.descricao = descricao;
+        this.realizada = "N";
+        this.idmedico = idmedico;
+        this.idpaciente = idpaciente;
+    }
+
+    public Consulta(int id, String data, String descricao, String realizada, int idmedico, int idpaciente) {
+        this.id = id;
+        this.data = data;
+        this.descricao = descricao;
+        this.realizada = realizada;
+        this.idmedico = idmedico;
+        this.idpaciente = idpaciente;
+    }
+
+    
+    public Consulta() {
+        this.id = 0;
+        this.data = "";
+        this.descricao = "";
+        this.realizada = "N";
+        this.idmedico = 0;
+        this.idpaciente = 0;
+    }
+
+    
     public int getId() {
         return id;
     }

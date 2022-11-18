@@ -25,7 +25,7 @@
                             switch (perfil) {
                                 case "paciente":%>
                                 <li class="nav-item">
-                                    <a class="nav-link" style="margin-right:30px;" href="agendaConsulta.jsp">Agendar consulta</a>
+                                    <a href="ConsultaController?method=GET&acao=Incluir" class="nav-link" style="margin-right:30px;">Agendar consulta</a>
                                 </li>
                         <%      break;  
                             case "administrador":%>
