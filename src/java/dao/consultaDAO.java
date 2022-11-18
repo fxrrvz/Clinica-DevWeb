@@ -49,11 +49,11 @@ public class consultaDAO {
         
     }
     
-    public List<Consulta> read(){
+    public ArrayList<Consulta> read(){
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        List<Consulta> lista = new ArrayList<>();
+        ArrayList<Consulta> lista = new ArrayList<>();
         
         try {
             stmt = con.prepareStatement("SELECT * FROM Consulta");
@@ -79,6 +79,33 @@ public class consultaDAO {
         
     }
     
+    public Consulta getConsulta(int id) throws Exception {
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt;
+        try {
+            Consulta consulta = new Consulta();
+            stmt = con.prepareStatement("SELECT * FROM consulta WHERE ID = ?;");
+            stmt.setInt(1, id);
+            ResultSet resultado = stmt.executeQuery();
+            if (resultado != null) {
+                while (resultado.next()) {
+                    consulta.setId(Integer.parseInt(resultado.getString("ID")));
+                    consulta.setData(resultado.getString("DATA"));
+                    consulta.setDescricao(resultado.getString("DESCRICAO"));
+                    consulta.setRealizada(resultado.getString("REALIZADA"));
+                    consulta.setIdMedico(resultado.getInt("IDMEDICO"));
+                    consulta.setIdPaciente(resultado.getInt("IDPACIENTE"));
+                }
+            }
+            return consulta;
+
+        } catch (SQLException ex) {
+            System.out.print(ex);
+            throw new RuntimeException("Query de select (get) incorreta");
+        } finally {
+            ConnectionFactory.closeConnection(con);
+        }
+    }
     
 }
 

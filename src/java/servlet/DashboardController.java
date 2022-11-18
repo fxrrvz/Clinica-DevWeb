@@ -5,9 +5,7 @@
  */
 package servlet;
 
-import aplicacao.Usuario;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,8 +22,8 @@ public class DashboardController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        RequestDispatcher rd = request.getRequestDispatcher("/view/dashboard/areaRestrita.jsp");
+        //RequestDispatcher rd = request.getRequestDispatcher("/view/dashboard/areaRestrita.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("/view/home.jsp");
         rd.forward(request, response);
 
     }
@@ -33,7 +31,8 @@ public class DashboardController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDispatcher rd = request.getRequestDispatcher("/view/dashboard/areaRestrita.jsp");
+        //RequestDispatcher rd = request.getRequestDispatcher("/view/dashboard/areaRestrita.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("/view/home.jsp");
         rd.forward(request, response);
 
     }

@@ -54,12 +54,12 @@ public class medicoDAO {
     
     public List<Medico> read(){
         Connection con = ConnectionFactory.getConnection();
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
+        PreparedStatement stmt;
+        ResultSet rs;
         List<Medico> lista = new ArrayList<>();
         
         try {
-            stmt = con.prepareStatement("SELECT * FROM Medico");
+            stmt = con.prepareStatement("SELECT * FROM medico");
             rs = stmt.executeQuery();
             
             while (rs.next()) {

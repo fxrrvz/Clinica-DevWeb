@@ -37,9 +37,6 @@
                                     <input type="text" placeholder="CPF" name="cpf" class="form-control mb-3"/>
                                 </div>
                                 <div class="col-12">
-                                    <input type="text" placeholder="Autorizado" name="autorizado" class="form-control mb-3"/>
-                                </div>
-                                <div class="col-12">
                                     <input type="text" placeholder="Tipo plano" name="idtipoplano" class="form-control mb-3"/>
                                 </div>                
                                 <div class="col-12">  

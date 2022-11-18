@@ -26,6 +26,15 @@ and open the template in the editor.
                            <%= msgError %>
                         </div>
                 <% }%>
+                
+                <%
+                    String msgOperacaoRealizada = (String) request.getAttribute("msgOperacaoRealizada");
+                    if ((msgOperacaoRealizada != null) && (!msgOperacaoRealizada.isEmpty())) {%>
+                        <div class="alert alert-success" role="alert">
+                           <%= msgOperacaoRealizada %>
+                        </div>
+                <% }%>
+                
                 <form class="form-group" action="AutenticaController?acao=Logar" method="POST">
                    <select class="form-select form-control-sm mb-3" multiple name="perfil" aria-label="multiple select example">
                         <option value="administrador">administrador</option>
@@ -35,7 +44,7 @@ and open the template in the editor.
                     <input type="text" placeholder="CPF" name="cpf" class="form-control mb-3"/>
                     <input type="password" placeholder="Senha" name="senha" class="form-control mb-3"/>
                     <button type="submit">Login<!--a href="#" class="btn btn-primary mr-3" style="background-color: #6610f2">Login</a--></button>
-                    <a href="AdministradorController?acao=Listar" method="POST" class="btn btn-primary" style="background-color: #6610f2">Cadastre-se</a>
+                    <a href="index.jsp" class="btn btn-primary" style="background-color: #6610f2">Voltar</a>
                 </form>
                 </div>
                 <div class="col"></div>

@@ -5,10 +5,9 @@
  */
 package servlet;
 
-import aplicacao.Paciente;
-import aplicacao.Usuario;
+import aplicacao.Consulta;
 import connection.ConnectionFactory;
-import dao.pacienteDAO;
+import dao.consultaDAO;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
@@ -22,56 +21,55 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Ferraz-PC
  */
-@WebServlet(name = "PacienteController", urlPatterns = {"/PacienteController"})
-public class PacienteController extends HttpServlet {
-    String view = "/view/usuario/cadastroPaciente.jsp";
+@WebServlet(name = "ConsultaController", urlPatterns = {"/ConsultaController"})
+public class ConsultaController extends HttpServlet {
+    String view = "/view/usuario/agendaConsulta.jsp";
+    String home = "/view/home.jsp";
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         String acao = (String) request.getParameter("acao");
-        Paciente usuario = new Paciente();
-        pacienteDAO pacienteDAO = new pacienteDAO();
+        Consulta consulta = new Consulta();
+        consultaDAO consultaDAO = new consultaDAO();
         RequestDispatcher rd;
         switch (acao) {
-            /*
             case "Listar":
                 try {
-                    ArrayList<aplicacao.Usuario> listaUsuarios = pacienteDAO.ListaDePacientes();
+                    ArrayList<aplicacao.Consulta> listaConsultas = consultaDAO.read();
                     request.setAttribute("msgOperacaoRealizada", "");
-                    request.setAttribute("listaUsuarios", listaUsuarios);
-                    rd = request.getRequestDispatcher("/view/usuario/listaUsuarios.jsp");
+                    request.setAttribute("listaConsultas", listaConsultas);
+                    rd = request.getRequestDispatcher(home);
                     rd.forward(request, response);
 
                 } catch (IOException | ServletException ex) {
                     System.out.println(ex.getMessage());
-                    throw new RuntimeException("Falha na query listar usuarios (Usuario) ");
+                    throw new RuntimeException("Falha na query listar consultas (Consulta) ");
                 }
                 break;
-            */
             case "Alterar":
             case "Excluir":
                 try {
                     int id = Integer.parseInt(request.getParameter("id"));
-                    usuario = pacienteDAO.getPaciente(id);
-                    usuario.setId(id);
+                    consulta = consultaDAO.getConsulta(id);
+                    consulta.setId(id);
                 } catch (Exception ex) {
                     System.out.println(ex.getMessage());
-                    throw new RuntimeException("Falha em uma query para cadastro de usuario");
+                    throw new RuntimeException("Falha em uma query para cadastro da consulta");
                 }
                 break;
 
         }
-        request.setAttribute("usuario", usuario);
+        request.setAttribute("consulta", consulta);
         request.setAttribute("msgError", "");
         request.setAttribute("acao", acao);
 
-        rd = request.getRequestDispatcher("view");
+        rd = request.getRequestDispatcher(home);
         rd.forward(request, response);
 
     }
-
-    @Override
+    
+     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
@@ -86,7 +84,7 @@ public class PacienteController extends HttpServlet {
 
         if (nome_user.isEmpty() || cpf_user.isEmpty() || senha_user.isEmpty() || itp_user == 0) {
 
-            Usuario usuario = new Usuario(nome_user, cpf_user);
+            Consulta consulta = new Consulta(nome_user, cpf_user);
             switch (acao) {
                 case "Incluir":
                     request.setAttribute("acao", "Incluir");

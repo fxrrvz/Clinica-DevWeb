@@ -80,7 +80,6 @@ public class usuarioDAO {
     }
     
     public Usuario logar(Usuario usuario, String banco) throws Exception {
-        System.out.print("banco "+ banco + "\n");
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt;
         ResultSet resultado;
@@ -101,7 +100,6 @@ public class usuarioDAO {
             }
              return usuarioObtido;
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
             throw new RuntimeException("Query de select (get) incorreta");
         } finally {
             ConnectionFactory.closeConnection(con);

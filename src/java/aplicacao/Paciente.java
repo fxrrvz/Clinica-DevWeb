@@ -28,11 +28,11 @@ public class Paciente{
         this.idtipoplano = idtipoplano;
     }
 
-    public Paciente(String nome, String cpf, String senha, String autorizado, int idtipoplano) {
+    public Paciente(String nome, String cpf, String senha, int idtipoplano) {
         this.nome = nome;
         this.cpf = cpf;
         this.senha = senha;
-        this.autorizado = autorizado;
+        this.autorizado = "N";
         this.idtipoplano = idtipoplano;
     }
 

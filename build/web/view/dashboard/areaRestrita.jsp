@@ -23,11 +23,12 @@
 
                 <h1>Área Restrita</h1>
                 <%
+                    String perfil = (String) session.getAttribute("perfil");
                     Usuario usuarioLogado = (Usuario) session.getAttribute("usuario");
                     out.println("<h3>Usuário logado com sucesso</h3>");
                     out.println("<h2>Nome: " + usuarioLogado.getNome() + "</h2>");
                     out.println("<h2>CPF: " + usuarioLogado.getCpf()+ "</h2>");
-                    
+                    out.println("<h2>Perfil: " + perfil + "</h2>");
                     
                 %>
 

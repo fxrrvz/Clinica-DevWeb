@@ -13,7 +13,8 @@ and open the template in the editor.
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <ul class="navbar-nav mr-auto">
+            <a class="navbar-brand" style="margin-left:2%; margin-right: 40px">Clínica DevWeb&nbsp<img src="img/health.png" alt="aaaa" style="width:30px;height:30px;"></a>
+            <ul class="navbar-nav">
                 <li class="nav-item active">
                     <a class="nav-link" style="margin-right:30px;" href="AutenticaController?acao=Login">Login</a>
                 </li>
@@ -22,6 +23,6 @@ and open the template in the editor.
                 </li>
             </ul>
         </nav>
-        <h1> kkkkk uiiii </h1>
+        <h1><img src="img/health.png" alt="aaaa" style="width:200px;height:200px;"></h1>
     </body>
 </html>
