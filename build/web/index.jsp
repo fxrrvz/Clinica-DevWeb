@@ -18,7 +18,7 @@ and open the template in the editor.
                     <a class="nav-link" style="margin-right:30px;" href="AutenticaController?acao=Login">Login</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" style="margin-right:30px;" href="#">Logout</a>
+                    <a class="nav-link" style="margin-right:30px;" href="PacienteController?acao=Incluir">Cadastrar-se</a>
                 </li>
             </ul>
         </nav>

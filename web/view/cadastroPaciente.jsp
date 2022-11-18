@@ -22,31 +22,39 @@
                     <div class="col-4"></div>
                     <div class="col-4">
                         <div class="row">
-                            <form class="form-group">
+                            <%
+                            String msgError = (String) request.getAttribute("msgError");
+                            if ((msgError != null) && (!msgError.isEmpty())) {%>
+                                <div class="alert alert-danger" role="alert">
+                                   <%= msgError %>
+                                </div>
+                            <% }%>
+                            <form class="form-group" action="PacienteController?acao=Incluir" method="POST">
                                 <div class="col-12">
-                                    <input type="text" placeholder="Nome" class=" form-control mb-3" />
+                                    <input type="text" placeholder="Nome" name="nome" class=" form-control mb-3" />
                                 </div>
                                 <div class="col-12">
-                                    <input type="text" placeholder="CPF" class="form-control mb-3"/>
+                                    <input type="text" placeholder="CPF" name="cpf" class="form-control mb-3"/>
                                 </div>
                                 <div class="col-12">
-                                    <input type="text" placeholder="Autorizado" class="form-control mb-3"/>
+                                    <input type="text" placeholder="Autorizado" name="autorizado" class="form-control mb-3"/>
                                 </div>
                                 <div class="col-12">
-                                    <input type="text" placeholder="Tipo plano" class="form-control mb-3"/>
+                                    <input type="text" placeholder="Tipo plano" name="idtipoplano" class="form-control mb-3"/>
                                 </div>                
                                 <div class="col-12">  
-                                    <input type="password" placeholder="Senha" class="form-control mb-3"/>
+                                    <input type="password" placeholder="Senha" name="senha" class="form-control mb-3"/>
                                 </div>                                                            
                                 <div class="col-12">
-                                    <input type="password" placeholder="Confirmar senha" class="form-control mb-3"/>
-                                </div>   
+                                    <input type="password" placeholder="Confirmar senha" name="csenha" class="form-control mb-3"/>
+                                </div>
+                                <button type="submit">Cadastrar</button>
                             </form>
                         </div>
                     </div>
                     <div class="col-4"></div>
                 </div>
-                <a href="home.jsp" class="btn btn-primary mt-3" style="background-color: #6610f2">Cadastrar</a>
+               
             </div>
         </div>
     </body>
