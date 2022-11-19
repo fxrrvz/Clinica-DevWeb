@@ -30,13 +30,13 @@ public class AutenticaController extends HttpServlet{
         RequestDispatcher rd ;
         switch (acao) {
             case "Login":  // chama form de login
-                rd = request.getRequestDispatcher("/view/login.jsp");
+                rd = request.getRequestDispatcher("login.jsp");
                 rd.forward(request, response);
                 break;
             case "Logout":
                 HttpSession session = request.getSession();
                 session.invalidate();
-                rd = request.getRequestDispatcher("/view/login.jsp");
+                rd = request.getRequestDispatcher("login.jsp");
                 rd.forward(request, response);
                 break;
         }
@@ -54,7 +54,7 @@ public class AutenticaController extends HttpServlet{
         if (cpf_user.isEmpty() || senha_user.isEmpty()) {
             // dados não foram preenchidos retorna ao formulário
             request.setAttribute("msgError", "Usuário e/ou senha incorreto");
-            rd = request.getRequestDispatcher("/view/login.jsp");
+            rd = request.getRequestDispatcher("login.jsp");
             rd.forward(request, response);
 
 
@@ -79,7 +79,7 @@ public class AutenticaController extends HttpServlet{
          
             } else {
                 request.setAttribute("msgError", "Usuário e/ou senha incorreto");
-                rd = request.getRequestDispatcher("/view/login.jsp");
+                rd = request.getRequestDispatcher("login.jsp");
                 rd.forward(request, response);
                 
              

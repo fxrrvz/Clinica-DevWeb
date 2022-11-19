@@ -16,27 +16,27 @@
     </head>
     <body>
         <h1 class="titulo-login">Agendar consulta</h1>
-        <%
-                    String msgError = (String) request.getAttribute("msgError");
-                    if ((msgError != null) && (!msgError.isEmpty())) {%>
-                        <div class="alert alert-danger" role="alert">
-                           <%= msgError %>
-                        </div>
-                <% }%>
-                
-                <%
-                    String msgOperacaoRealizada = (String) request.getAttribute("msgOperacaoRealizada");
-                    if ((msgOperacaoRealizada != null) && (!msgOperacaoRealizada.isEmpty())) {%>
-                        <div class="alert alert-success" role="alert">
-                           <%= msgOperacaoRealizada %>
-                        </div>
-                <% }%>
         <div class="container text-center">
             <div class="row mt-5">
                 <div class="col-4"></div>
                 <div class="col-4">
                     <div class="row">
-                        <form class="form-group">
+                        <%
+                            String msgError = (String) request.getAttribute("msgError");
+                            if ((msgError != null) && (!msgError.isEmpty())) {%>
+                                <div class="alert alert-danger" role="alert">
+                                   <%= msgError %>
+                                </div>
+                        <% }%>
+
+                        <%
+                            String msgOperacaoRealizada = (String) request.getAttribute("msgOperacaoRealizada");
+                            if ((msgOperacaoRealizada != null) && (!msgOperacaoRealizada.isEmpty())) {%>
+                                <div class="alert alert-success" role="alert">
+                                   <%= msgOperacaoRealizada %>
+                                </div>
+                        <% }%>
+                        <form class="form-group" action="ConsultaController?acao=Incluir" method="POST">
                             <div class="col-12">
                                 <input type="date" name="data" placeholder="Data" class="form-control mb-3"/>
                             </div>   
@@ -52,12 +52,12 @@
                             <div class="col-12">
                                 <textarea type="text" name="descricao" placeholder="Descrição" class=" form-control mb-3"></textarea>
                             </div>
+                            <button type="submit" class="btn btn-primary mt-1" style="background-color: #6610f2">Agendar</a>
                         </form>
                     </div>
                 </div>
                 <div class="col-4"></div>
             </div>
-            <a href="ConsultaController?method=POST&acao=Incluir" class="btn btn-primary mt-1" style="background-color: #6610f2">Agendar</a>
         </div>
     </body>
 </html>

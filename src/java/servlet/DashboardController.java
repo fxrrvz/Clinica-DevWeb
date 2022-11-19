@@ -23,7 +23,7 @@ public class DashboardController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //RequestDispatcher rd = request.getRequestDispatcher("/view/dashboard/areaRestrita.jsp");
-        RequestDispatcher rd = request.getRequestDispatcher("/view/home.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("home.jsp");
         rd.forward(request, response);
 
     }
@@ -32,7 +32,7 @@ public class DashboardController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //RequestDispatcher rd = request.getRequestDispatcher("/view/dashboard/areaRestrita.jsp");
-        RequestDispatcher rd = request.getRequestDispatcher("/view/home.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("home.jsp");
         rd.forward(request, response);
 
     }

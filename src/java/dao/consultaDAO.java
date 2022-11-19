@@ -10,12 +10,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import aplicacao.Consulta;
-import aplicacao.Paciente;
 import connection.ConnectionFactory;
 /**
  *
@@ -29,20 +26,20 @@ public class consultaDAO {
         PreparedStatement stmt = null;
         
         try {
-            stmt = con.prepareStatement("INSERT INTO consulta(data, descricao, realizada, idmedico, idpaciente) VALUES(?,?,?,?,?)");
+            stmt = con.prepareStatement("INSERT INTO consulta (data, descricao, idmedico, idpaciente, realizada) VALUES(?,?,?,?,?)");
             stmt.setString(1, consulta.getData());
             stmt.setString(2, consulta.getDescricao());
-            stmt.setString(3, consulta.getRealizada());
-            stmt.setInt(4, consulta.getIdMedico());
-            stmt.setInt(5, consulta.getIdPaciente());
+            stmt.setInt(3, consulta.getIdMedico());
+            stmt.setInt(4, consulta.getIdPaciente());
+            stmt.setString(5, "N");
             
             stmt.executeUpdate();
             
-            JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
+            System.out.print("Salvo com sucesso!");
             
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, ex);
-            JOptionPane.showMessageDialog(null, "Erro ao salvar!");
+            System.out.print(ex);
+            System.out.print("Erro ao salvar!");
         }finally{
             ConnectionFactory.closeConnection(con, stmt);
         }

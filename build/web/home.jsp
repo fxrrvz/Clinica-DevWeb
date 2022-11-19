@@ -25,7 +25,7 @@
                             switch (perfil) {
                                 case "paciente":%>
                                 <li class="nav-item">
-                                    <a href="ConsultaController?method=GET&acao=Incluir" class="nav-link" style="margin-right:30px;">Agendar consulta</a>
+                                    <a href="agendaConsulta.jsp" class="nav-link" style="margin-right:30px;">Agendar consulta</a>
                                 </li>
                         <%      break;  
                             case "administrador":%>
@@ -59,6 +59,21 @@
         </header>
         <h1>Home</h1>
         <form class="form-group" action="" method="">
+            <%
+                    String msgError = (String) request.getAttribute("msgError");
+                    if ((msgError != null) && (!msgError.isEmpty())) {%>
+                        <div class="alert alert-danger" role="alert">
+                           <%= msgError %>
+                        </div>
+                <% }%>
+                
+                <%
+                    String msgOperacaoRealizada = (String) request.getAttribute("msgOperacaoRealizada");
+                    if ((msgOperacaoRealizada != null) && (!msgOperacaoRealizada.isEmpty())) {%>
+                        <div class="alert alert-success" role="alert">
+                           <%= msgOperacaoRealizada %>
+                        </div>
+                <% }%>
             <table class="form-table form-control-sm">
                     <thead>
                     <%    

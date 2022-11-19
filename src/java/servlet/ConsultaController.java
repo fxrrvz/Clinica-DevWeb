@@ -6,7 +6,6 @@
 package servlet;
 
 import aplicacao.Consulta;
-import connection.ConnectionFactory;
 import dao.consultaDAO;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -23,21 +22,18 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "ConsultaController", urlPatterns = {"/ConsultaController"})
 public class ConsultaController extends HttpServlet {
-    String view = "/view/agendaConsulta.jsp";
-    String home = "/view/home.jsp";
+    String view = "agendaConsulta.jsp";
+    String home = "home.jsp";
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         String acao = (String) request.getParameter("acao");
+        
         Consulta consulta = new Consulta();
         consultaDAO consultaDAO = new consultaDAO();
         RequestDispatcher rd;
         switch (acao) {
-            case "Incluir":
-                rd = request.getRequestDispatcher(view);
-                rd.forward(request, response);
-                break;
             case "Listar":
                 try {
                     ArrayList<aplicacao.Consulta> listaConsultas = consultaDAO.read();
@@ -49,6 +45,7 @@ public class ConsultaController extends HttpServlet {
                 } catch (IOException | ServletException ex) {
                     System.out.println(ex.getMessage());
                     throw new RuntimeException("Falha na query listar consultas (Consulta) ");
+                
                 }
                 break;
             case "Alterar":
@@ -61,40 +58,39 @@ public class ConsultaController extends HttpServlet {
                     System.out.println(ex.getMessage());
                     throw new RuntimeException("Falha em uma query para cadastro da consulta");
                 }
-                break;
-
+                break;       
         }
         request.setAttribute("consulta", consulta);
         request.setAttribute("msgError", "");
         request.setAttribute("acao", acao);
 
-        rd = request.getRequestDispatcher(home);
-        rd.forward(request, response);
-
+        rd = request.getRequestDispatcher(view);
+        rd.forward(request, response); 
     }
     
      @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        int id = Integer.parseInt(request.getParameter("id"));
+        //int id = Integer.parseInt(request.getParameter("id"));
         String acao = request.getParameter("acao");
-        String data = request.getParameter("data");
-        String descricao= request.getParameter("descricao");
+        String data_user = request.getParameter("data");
+        String descricao_user = request.getParameter("descricao");
+        int idmedico_user = Integer.parseInt(request.getParameter("idmedico"));
+        int idpaciente_user = Integer.parseInt(request.getParameter("idpaciente"));
         String realizada = request.getParameter("realizada");
-        int idmedico = Integer.parseInt(request.getParameter("idmedico"));
-        int idpaciente = Integer.parseInt(request.getParameter("idpaciente"));
 
         RequestDispatcher rd;
 
-        if (data.isEmpty() || descricao.isEmpty() || idmedico == 0 || idpaciente == 0) {
+        if (data_user.isEmpty() || descricao_user.isEmpty() || idmedico_user == 0 || idpaciente_user == 0) {
 
-            Consulta consulta = new Consulta(data, descricao, idmedico, idpaciente);
+            Consulta consulta = new Consulta(data_user, data_user, idmedico_user, idpaciente_user);
             switch (acao) {
                 case "Incluir":
                     request.setAttribute("acao", "Incluir");
                     break;
                 case "Alterar":
+                /*
                 case "Excluir":
                     try {
                         consultaDAO consultaDAO = new consultaDAO();
@@ -103,7 +99,8 @@ public class ConsultaController extends HttpServlet {
                         System.out.println(ex.getMessage());
                         throw new RuntimeException("Falha em uma query para cadastro de usuario");
                     }
-                    break;   
+                    break;
+                */    
             }
 
             request.setAttribute("msgError", "É necessário preencher todos os campos");
@@ -112,7 +109,7 @@ public class ConsultaController extends HttpServlet {
             rd.forward(request, response);
 
         } else {
-            Consulta consulta = new Consulta(data, descricao, idmedico, idpaciente);
+            Consulta consulta = new Consulta(data_user, descricao_user, idmedico_user, idpaciente_user);
             consultaDAO consultaDAO = new consultaDAO();
 
             try {
