@@ -35,11 +35,11 @@ public class consultaDAO {
             
             stmt.executeUpdate();
             
-            System.out.print("Salvo com sucesso!");
+            System.out.print("\nSalvo com sucesso!"+"\n");
             
         } catch (SQLException ex) {
-            System.out.print(ex);
-            System.out.print("Erro ao salvar!");
+            System.out.print("\n"+ex+"\n");
+            System.out.print("\nErro ao salvar!"+"\n");
         }finally{
             ConnectionFactory.closeConnection(con, stmt);
         }

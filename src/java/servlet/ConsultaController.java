@@ -43,7 +43,7 @@ public class ConsultaController extends HttpServlet {
                     rd.forward(request, response);
 
                 } catch (IOException | ServletException ex) {
-                    System.out.println(ex.getMessage());
+                    System.out.println(ex.getMessage()+"\n");
                     throw new RuntimeException("Falha na query listar consultas (Consulta) ");
                 
                 }
@@ -55,7 +55,7 @@ public class ConsultaController extends HttpServlet {
                     consulta = consultaDAO.getConsulta(id);
                     consulta.setId(id);
                 } catch (Exception ex) {
-                    System.out.println(ex.getMessage());
+                    System.out.println(ex.getMessage()+"\n");
                     throw new RuntimeException("Falha em uma query para cadastro da consulta");
                 }
                 break;       
