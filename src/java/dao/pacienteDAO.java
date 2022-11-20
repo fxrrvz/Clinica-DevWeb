@@ -6,6 +6,7 @@
  */
 package dao;
 
+import aplicacao.Especialidade;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -135,6 +136,28 @@ public class pacienteDAO {
         } catch (SQLException ex) {
             System.out.print(ex);
             throw new RuntimeException("Query de delete (excluir) incorreta");
+        } finally {
+            ConnectionFactory.closeConnection(con);
+        }
+    }
+    
+    public Especialidade getEspecialidade(int id) throws Exception {
+    Connection con = ConnectionFactory.getConnection();
+        try {
+            Especialidade especialidade = new Especialidade();
+            PreparedStatement sql = con.prepareStatement("SELECT DISTINCT * FROM especialidade WHERE id = ?");
+            sql.setInt(1, id);
+            ResultSet resultado = sql.executeQuery();
+            if (resultado != null) {
+                while (resultado.next()) {
+                    especialidade.setId(Integer.parseInt(resultado.getString("ID")));
+                    especialidade.setDescricao(resultado.getString("DESCRICAO"));
+                }
+            }
+            return especialidade;
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Query de select (get) incorreta");
         } finally {
             ConnectionFactory.closeConnection(con);
         }

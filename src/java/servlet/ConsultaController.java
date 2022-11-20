@@ -6,6 +6,7 @@
 package servlet;
 
 import aplicacao.Consulta;
+import aplicacao.Usuario;
 import dao.consultaDAO;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -73,18 +75,22 @@ public class ConsultaController extends HttpServlet {
             throws ServletException, IOException {
         
         //int id = Integer.parseInt(request.getParameter("id"));
+        HttpSession session = request.getSession();
+        Usuario usuarioLogado = (Usuario) session.getAttribute("usuario");
+        int idpaciente_user = usuarioLogado.getId();
         String acao = request.getParameter("acao");
         String data_user = request.getParameter("data");
+        String horario_user = request.getParameter("horario");
+        String data_hora = data_user + " " + horario_user;
         String descricao_user = request.getParameter("descricao");
         int idmedico_user = Integer.parseInt(request.getParameter("idmedico"));
-        int idpaciente_user = Integer.parseInt(request.getParameter("idpaciente"));
         String realizada = request.getParameter("realizada");
 
         RequestDispatcher rd;
 
-        if (data_user.isEmpty() || descricao_user.isEmpty() || idmedico_user == 0 || idpaciente_user == 0) {
+        if (data_user.isEmpty() || descricao_user.isEmpty() || horario_user.isEmpty() || idmedico_user == 0 || idpaciente_user == 0) {
 
-            Consulta consulta = new Consulta(data_user, data_user, idmedico_user, idpaciente_user);
+            Consulta consulta = new Consulta(data_hora, descricao_user, idmedico_user, idpaciente_user);
             switch (acao) {
                 case "Incluir":
                     request.setAttribute("acao", "Incluir");
@@ -109,7 +115,7 @@ public class ConsultaController extends HttpServlet {
             rd.forward(request, response);
 
         } else {
-            Consulta consulta = new Consulta(data_user, descricao_user, idmedico_user, idpaciente_user);
+            Consulta consulta = new Consulta(data_hora, descricao_user, idmedico_user, idpaciente_user);
             consultaDAO consultaDAO = new consultaDAO();
 
             try {
