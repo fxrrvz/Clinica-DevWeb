@@ -47,14 +47,15 @@ public class consultaDAO {
         
     }
     
-    public ArrayList<Consulta> read(){
+    public ArrayList<Consulta> read(int id){
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
         ArrayList<Consulta> lista = new ArrayList<>();
         
         try {
-            stmt = con.prepareStatement("SELECT * FROM Consulta");
+            stmt = con.prepareStatement("SELECT * FROM consulta WHERE idpaciente=?");
+            stmt.setInt(1, id);
             rs = stmt.executeQuery();
             
             while (rs.next()) {
@@ -72,7 +73,7 @@ public class consultaDAO {
         } catch (SQLException ex) {
             Logger.getLogger(consultaDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
         return lista;
         
     }

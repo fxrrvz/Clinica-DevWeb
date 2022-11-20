@@ -38,7 +38,7 @@ public class ConsultaController extends HttpServlet {
         switch (acao) {
             case "Listar":
                 try {
-                    ArrayList<aplicacao.Consulta> listaConsultas = consultaDAO.read();
+                    ArrayList<aplicacao.Consulta> listaConsultas = consultaDAO.read(consulta.getId());
                     request.setAttribute("msgOperacaoRealizada", "");
                     request.setAttribute("listaConsultas", listaConsultas);
                     rd = request.getRequestDispatcher(home);
