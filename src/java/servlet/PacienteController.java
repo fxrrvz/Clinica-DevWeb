@@ -66,7 +66,7 @@ public class PacienteController extends HttpServlet {
         request.setAttribute("msgError", "");
         request.setAttribute("acao", acao);
 
-        rd = request.getRequestDispatcher("view");
+        rd = request.getRequestDispatcher(view);
         rd.forward(request, response);
 
     }
@@ -132,7 +132,7 @@ public class PacienteController extends HttpServlet {
                 ArrayList<aplicacao.Paciente> listaUsuarios = pacienteDAO.ListaDeUsuarios();
                 request.setAttribute("listaUsuarios", listaUsuarios);
                 */
-                rd = request.getRequestDispatcher("/view/login.jsp");
+                rd = request.getRequestDispatcher("/login.jsp");
                 rd.forward(request, response);
                 
             } catch (Exception ex) {
