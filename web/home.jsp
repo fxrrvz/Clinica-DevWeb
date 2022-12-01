@@ -3,7 +3,6 @@
     Created on : 08/10/2022, 00:23:50
     Author     : Ferraz-PC
 --%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -21,37 +20,101 @@
             
                 <div class="collapse navbar-collapse">
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active">
-                            <a class="nav-link" style="margin-right:30px;" href="cadastroPaciente.jsp">Cadastrar paciente</a>
-                        </li>
+                        <%
+                            String perfil = (String) session.getAttribute("perfil");
+                            switch (perfil) {
+                                case "paciente":%>
+                                <li class="nav-item">
+                                    <a href="agendaConsulta.jsp" class="nav-link" style="margin-right:30px;">Agendar consulta</a>
+                                </li>
+                        <%      break;  
+                            case "administrador":%>
+                                <li class="nav-item">
+                                    <a class="nav-link" style="margin-right:30px;" href="cadastroPlano.jsp">Cadastrar plano</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" style="margin-right:30px;" href="cadastroAdmin.jsp">Cadastrar administrador</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" style="margin-right:30px;" href="cadastroMedico.jsp">Cadastrar médico</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" style="margin-right:30px;" href="clinicaEspecialidade.jsp">Clinica especialidade</a>
+                                </li>
+                        <%      break;
+                            case "medico":%>  
+                                <li class="nav-item active">
+                                    <a class="nav-link" style="margin-right:30px;" href="cadastroExame.jsp">Cadastro Exame</a>
+                                </li>
+                        <%      break;
+                            }%>
+                    </ul>
+                    <ul class="navbar-nav justify-content-end">
                         <li class="nav-item">
-                            <a class="nav-link" style="margin-right:30px;" href="cadastroPlano.jsp">Cadastrar plano</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" style="margin-right:30px;" href="agendaConsulta.jsp">Agendar consulta</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" style="margin-right:30px;" href="cadastroExame.jsp">Cadastrar exame</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" style="margin-right:30px;" href="cadastroAdmin.jsp">Cadastrar administrador</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" style="margin-right:30px;" href="cadastroMedico.jsp">Cadastrar médico</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" style="margin-right:30px;" href="clinicaExame.jsp">Clinica exame</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" style="margin-right:30px;" href="clinicaEspecialidade.jsp">Clinica especialidade</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" style="margin-right:30px;" href="index.html">Logout</a>
+                            <a class="nav-link" style="margin-right:30px;" href="index.jsp">Logout</a>
                         </li>
                     </ul>
                 </div>
             </nav>
         </header>
         <h1>Home</h1>
+        <form class="form-group" action="" method="">
+            <%
+                    String msgError = (String) request.getAttribute("msgError");
+                    if ((msgError != null) && (!msgError.isEmpty())) {%>
+                        <div class="alert alert-danger" role="alert">
+                           <%= msgError %>
+                        </div>
+                <% }%>
+                
+                <%
+                    String msgOperacaoRealizada = (String) request.getAttribute("msgOperacaoRealizada");
+                    if ((msgOperacaoRealizada != null) && (!msgOperacaoRealizada.isEmpty())) {%>
+                        <div class="alert alert-success" role="alert">
+                           <%= msgOperacaoRealizada %>
+                        </div>
+                <% }%>
+            <table class="form-table form-control-sm">
+                    <thead>
+                    <%    
+                      switch (perfil) {
+                          case "paciente" :%>
+                            <tr>
+                              <th scope="col">#</th>
+                              <th scope="col">Data</th>
+                              <th scope="col">Descrição</th>
+                              <th scope="col">Realizada</th>
+                              <th scope="col">Medico</th>
+                            </tr>
+                    <%      break;
+                          case "administrador" :%>
+                            <tr>
+                              <th scope="col">#</th>
+                              <th scope="col">First</th>
+                              <th scope="col">Last</th>
+                              <th scope="col">Handle</th>
+                            </tr>
+                    <%        break;
+                          case "medico" :%>
+                            <tr>
+                              <th scope="col">#</th>
+                              <th scope="col">First</th>
+                              <th scope="col">Last</th>
+                              <th scope="col">Handle</th>
+                            </tr>
+                    <%        break;
+                      }%>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">1</th>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                        <td>@mdo</td>
+                        <td>teste</td>
+                      </tr>
+                    </tbody>
+            </table>
+        </form>    
     </body>
 </html>

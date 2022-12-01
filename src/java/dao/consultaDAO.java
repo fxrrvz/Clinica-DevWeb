@@ -10,11 +10,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
-import bean.Consulta;
+import aplicacao.Consulta;
 import connection.ConnectionFactory;
 /**
  *
@@ -22,27 +20,26 @@ import connection.ConnectionFactory;
  */
 public class consultaDAO {
     
-    public void create(Consulta med){
+    public void create(Consulta consulta){
         
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         
         try {
-            stmt = con.prepareStatement("INSERT INTO VALUES(?,?,?,?,?,?)");
-            stmt.setInt(1, med.getId());
-            stmt.setString(2, med.getData());
-            stmt.setString(3, med.getDescricao());
-            stmt.setString(4, med.getRealizada());
-            stmt.setInt(5, med.getIdMedico());
-            stmt.setInt(6, med.getIdPaciente());
+            stmt = con.prepareStatement("INSERT INTO consulta (data, descricao, idmedico, idpaciente, realizada) VALUES(?,?,?,?,?)");
+            stmt.setString(1, consulta.getData());
+            stmt.setString(2, consulta.getDescricao());
+            stmt.setInt(3, consulta.getIdMedico());
+            stmt.setInt(4, consulta.getIdPaciente());
+            stmt.setString(5, "N");
             
             stmt.executeUpdate();
             
-            JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
+            System.out.print("\nSalvo com sucesso!"+"\n");
             
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, ex);
-            JOptionPane.showMessageDialog(null, "Erro ao salvar!");
+            System.out.print("\n"+ex+"\n");
+            System.out.print("\nErro ao salvar!"+"\n");
         }finally{
             ConnectionFactory.closeConnection(con, stmt);
         }
@@ -50,11 +47,11 @@ public class consultaDAO {
         
     }
     
-    public List<Consulta> read(){
+    public ArrayList<Consulta> read(){
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        List<Consulta> lista = new ArrayList<>();
+        ArrayList<Consulta> lista = new ArrayList<>();
         
         try {
             stmt = con.prepareStatement("SELECT * FROM Consulta");
@@ -80,7 +77,68 @@ public class consultaDAO {
         
     }
     
+    public Consulta getConsulta(int id) throws Exception {
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt;
+        try {
+            Consulta consulta = new Consulta();
+            stmt = con.prepareStatement("SELECT * FROM consulta WHERE ID = ?;");
+            stmt.setInt(1, id);
+            ResultSet resultado = stmt.executeQuery();
+            if (resultado != null) {
+                while (resultado.next()) {
+                    consulta.setId(Integer.parseInt(resultado.getString("ID")));
+                    consulta.setData(resultado.getString("DATA"));
+                    consulta.setDescricao(resultado.getString("DESCRICAO"));
+                    consulta.setRealizada(resultado.getString("REALIZADA"));
+                    consulta.setIdMedico(resultado.getInt("IDMEDICO"));
+                    consulta.setIdPaciente(resultado.getInt("IDPACIENTE"));
+                }
+            }
+            return consulta;
+
+        } catch (SQLException ex) {
+            System.out.print(ex);
+            throw new RuntimeException("Query de select (get) incorreta");
+        } finally {
+            ConnectionFactory.closeConnection(con);
+        }
+    }
     
+    public void update(Consulta consulta) throws Exception {
+        Connection con = ConnectionFactory.getConnection();
+        try {
+            PreparedStatement sql = con.prepareStatement("UPDATE consulta SET data = ?, descricao = ?, realizada = ?, idmedico = ?, idpaciente = ?  WHERE ID = ?;");
+            sql.setString(1, consulta.getData());
+            sql.setString(2, consulta.getDescricao());
+            sql.setString(4, consulta.getRealizada());
+            sql.setInt(5, consulta.getIdMedico());
+            sql.setInt(6, consulta.getIdPaciente());
+            sql.setInt(7, consulta.getId());
+            sql.executeUpdate();
+
+        } catch (SQLException ex) {
+            System.out.print(ex);
+            throw new RuntimeException("Query de update (alterar) incorreta");
+        } finally {
+            ConnectionFactory.closeConnection(con);
+        }
+    }
+
+    public void delete(Consulta consulta) throws Exception {
+        Connection con = ConnectionFactory.getConnection();
+        try {
+            PreparedStatement sql = con.prepareStatement("DELETE FROM consulta WHERE ID = ?;");
+            sql.setInt(1, consulta.getId());
+            sql.executeUpdate();
+
+        } catch (SQLException ex) {
+            System.out.print(ex);
+            throw new RuntimeException("Query de delete (excluir) incorreta");
+        } finally {
+            ConnectionFactory.closeConnection(con);
+        }
+    }
 }
 
 

@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import bean.Usuario;
+import aplicacao.Usuario;
 import connection.ConnectionFactory;
 /**
  *
@@ -22,16 +22,19 @@ import connection.ConnectionFactory;
  */
 public class usuarioDAO {
     
+    
+    
     public void create(Usuario user, String banco){
         
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         
         try {
-            stmt = con.prepareStatement("INSERT INTO "+ banco +" VALUES(?,?,?)");
-            stmt.setString(1, user.getNome());
-            stmt.setString(2, user.getCpf());
-            stmt.setString(3, user.getSenha());
+            stmt = con.prepareStatement("INSERT INTO (?) VALUES (?,?,?,?)");
+            stmt.setString(1, banco);
+            stmt.setString(2, user.getNome());
+            stmt.setString(3, user.getCpf());
+            stmt.setString(4, user.getSenha());
             
             stmt.executeUpdate();
             
@@ -47,19 +50,21 @@ public class usuarioDAO {
         
     }
     
-    public List<Usuario> read(){
+    public List<Usuario> read(String banco){
         Connection con = ConnectionFactory.getConnection();
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
+        PreparedStatement stmt;
+        ResultSet rs;
         List<Usuario> lista = new ArrayList<>();
         
         try {
-            stmt = con.prepareStatement("SELECT * FROM Usuario");
+            stmt = con.prepareStatement("SELECT * FROM ?");
+            stmt.setString(1, banco);
             rs = stmt.executeQuery();
             
             while (rs.next()) {
                 
-                Usuario usuario = new Usuario(rs.getString("nome"),
+                Usuario usuario = new Usuario(rs.getInt("id"),
+                                              rs.getString("nome"),
                                               rs.getString("cpf"),
                                               rs.getString("senha"));
                 lista.add(usuario);                
@@ -74,5 +79,30 @@ public class usuarioDAO {
         
     }
     
-    
+    public Usuario logar(Usuario usuario, String banco) throws Exception {
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt;
+        ResultSet resultado;
+        try {
+            stmt = con.prepareStatement(String.format("SELECT * FROM %s WHERE cpf=? and senha=?;", banco));
+            stmt.setString(1, usuario.getCpf());
+            stmt.setString(2, usuario.getSenha());
+            
+            resultado = stmt.executeQuery();
+            Usuario usuarioObtido = new Usuario();
+            if (resultado != null) {
+                while (resultado.next()) {
+                    usuarioObtido.setId(Integer.parseInt(resultado.getString("id")));
+                    usuarioObtido.setNome(resultado.getString("nome"));
+                    usuarioObtido.setCpf(resultado.getString("cpf"));
+                    usuarioObtido.setSenha(resultado.getString("senha"));
+                }
+            }
+             return usuarioObtido;
+        } catch (SQLException e) {
+            throw new RuntimeException("Query de select (get) incorreta");
+        } finally {
+            ConnectionFactory.closeConnection(con);
+        }
+    }    
 }

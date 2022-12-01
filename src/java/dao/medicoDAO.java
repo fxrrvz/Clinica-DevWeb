@@ -10,11 +10,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import bean.Medico;
+import aplicacao.Medico;
 import connection.ConnectionFactory;
 /**
  *
@@ -52,21 +51,23 @@ public class medicoDAO {
         
     }
     
-    public List<Medico> read(){
+    public ArrayList<Medico> read(){
         Connection con = ConnectionFactory.getConnection();
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
-        List<Medico> lista = new ArrayList<>();
+        PreparedStatement stmt;
+        ResultSet rs;
+        ArrayList<Medico> lista = new ArrayList<>();
         
         try {
-            stmt = con.prepareStatement("SELECT * FROM Medico");
+            stmt = con.prepareStatement("SELECT * FROM medico");
             rs = stmt.executeQuery();
             
             while (rs.next()) {
                 
-                Medico medico = new Medico(rs.getString("nome"),
-                                           rs.getString("cpf"),
-                                           rs.getString("senha"));
+                Medico medico = new Medico();
+                medico.setId(rs.getInt("id"));
+                medico.setNome(rs.getString("nome"));
+                medico.setCpf(rs.getString("cpf"));
+                medico.setSenha(rs.getString("senha"));
                 medico.setCrm(rs.getInt("crm"));
                 medico.setEstadoCrm(rs.getString("estadocrm"));
                 medico.setAutorizado(rs.getString("autorizado"));

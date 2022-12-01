@@ -4,6 +4,12 @@
     Author     : Ferraz-PC
 --%>
 
+<%@page import="aplicacao.Especialidade"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="aplicacao.Medico"%>
+<%@page import="dao.pacienteDAO"%>
+<%@page import="dao.medicoDAO"%>
+<%@page import="aplicacao.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -21,31 +27,55 @@
                 <div class="col-4"></div>
                 <div class="col-4">
                     <div class="row">
-                        <form class="form-group">
+                        <%
+                            String msgError = (String) request.getAttribute("msgError");
+                            if ((msgError != null) && (!msgError.isEmpty())) {%>
+                                <div class="alert alert-danger" role="alert">
+                                   <%= msgError %>
+                                </div>
+                        <% }%>   
+
+                        <%
+                            Usuario usuarioLogado = (Usuario) session.getAttribute("usuario");
+                            int id = usuarioLogado.getId();
+                            request.setAttribute("idpaciente", id);
+                        %>    
+                        
+                        <%
+                            String msgOperacaoRealizada = (String) request.getAttribute("msgOperacaoRealizada");
+                            if ((msgOperacaoRealizada != null) && (!msgOperacaoRealizada.isEmpty())) {%>
+                                <div class="alert alert-success" role="alert">
+                                   <%= msgOperacaoRealizada %>
+                                </div>
+                        <% }%>
+                        <form class="form-group" action="ConsultaController?acao=Incluir" method="POST">
                             <div class="col-12">
-                                <input type="date" placeholder="Data" class="form-control mb-3"/>
+                                <input type="date" name="data" placeholder="Data" class="form-control mb-3"/>
                             </div>   
                             <div class="col-12">
-                                <input type="time" placeholder="Horário" class="form-control mb-3"/>
+                                <input type="time" name="horario" placeholder="Horário" class="form-control mb-3"/>
                             </div> 
-                            <div class="col-12">  
-                                <input type="text" placeholder="Realizada" class="form-control mb-3"/>
-                            </div>                                                            
+                        <%
+                            medicoDAO medicoDAO = new medicoDAO();
+                            pacienteDAO pacienteDAO = new pacienteDAO();
+                            ArrayList<Medico> listaMedico = medicoDAO.read();
+                            out.println("<select class='form-control mb-3' name='idmedico'");
+                            for (Medico medico : listaMedico) {
+                                Especialidade especialidade = (Especialidade) pacienteDAO.getEspecialidade(medico.getIdEspecialidade());
+                                out.println("<option value='" + medico.getId() + "'>" + medico.getNome() + " - " + especialidade.getDescricao() + "</option>");
+                            }
+                            out.println("</select>");                     
+                        %>
+                        
                             <div class="col-12">
-                                <input type="text" placeholder="ID Paciente" class="form-control mb-3"/>
-                            </div>   
-                            <div class="col-12">
-                                <input type="text" placeholder="ID Médico" class="form-control mb-3"/>
-                            </div>      
-                            <div class="col-12">
-                                <textarea type="text" placeholder="Descrição" class=" form-control mb-3"></textarea>
+                                <textarea type="text" name="descricao" placeholder="Descrição" class=" form-control mb-3"></textarea>
                             </div>
+                            <button type="submit" class="btn btn-primary mt-1" style="background-color: #6610f2">Agendar</a>
                         </form>
                     </div>
                 </div>
                 <div class="col-4"></div>
             </div>
-            <a href="home.jsp" class="btn btn-primary mt-1" style="background-color: #6610f2">Agendar</a>
         </div>
     </body>
 </html>
