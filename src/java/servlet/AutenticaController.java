@@ -5,7 +5,9 @@
  */
 package servlet;
 
+import aplicacao.Consulta;
 import aplicacao.Usuario;
+import dao.consultaDAO;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import dao.usuarioDAO;
+import java.util.ArrayList;
 import javax.servlet.http.HttpServlet;
 
 /**
@@ -73,7 +76,10 @@ public class AutenticaController extends HttpServlet{
                 HttpSession session = request.getSession();
                 session.setAttribute("usuario", usuarioObtido);
                 session.setAttribute("perfil", perfil_user);
-                rd = request.getRequestDispatcher("/DashboardController");
+                consultaDAO consultaDAO = new consultaDAO();
+                ArrayList<Consulta> consulta = (ArrayList<Consulta>) consultaDAO.read(usuarioObtido.getId());
+                request.setAttribute("consulta", consulta);
+                rd = request.getRequestDispatcher("home.jsp");
                 rd.forward(request, response);
                 
          

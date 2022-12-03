@@ -38,7 +38,7 @@
                         <%
                             Usuario usuarioLogado = (Usuario) session.getAttribute("usuario");
                             int id = usuarioLogado.getId();
-                            request.setAttribute("idpaciente", id);
+                            request.setAttribute("id", id);
                         %>    
                         
                         <%

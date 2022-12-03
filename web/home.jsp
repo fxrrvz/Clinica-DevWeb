@@ -3,6 +3,10 @@
     Created on : 08/10/2022, 00:23:50
     Author     : Ferraz-PC
 --%>
+<%@page import="aplicacao.Usuario"%>
+<%@page import="aplicacao.Consulta"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="dao.consultaDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -58,63 +62,102 @@
             </nav>
         </header>
         <h1>Home</h1>
-        <form class="form-group" action="" method="">
-            <%
-                    String msgError = (String) request.getAttribute("msgError");
-                    if ((msgError != null) && (!msgError.isEmpty())) {%>
-                        <div class="alert alert-danger" role="alert">
-                           <%= msgError %>
-                        </div>
-                <% }%>
-                
-                <%
-                    String msgOperacaoRealizada = (String) request.getAttribute("msgOperacaoRealizada");
-                    if ((msgOperacaoRealizada != null) && (!msgOperacaoRealizada.isEmpty())) {%>
-                        <div class="alert alert-success" role="alert">
-                           <%= msgOperacaoRealizada %>
-                        </div>
-                <% }%>
-            <table class="form-table form-control-sm">
-                    <thead>
-                    <%    
-                      switch (perfil) {
-                          case "paciente" :%>
-                            <tr>
-                              <th scope="col">#</th>
-                              <th scope="col">Data</th>
-                              <th scope="col">Descrição</th>
-                              <th scope="col">Realizada</th>
-                              <th scope="col">Medico</th>
-                            </tr>
-                    <%      break;
-                          case "administrador" :%>
-                            <tr>
-                              <th scope="col">#</th>
-                              <th scope="col">First</th>
-                              <th scope="col">Last</th>
-                              <th scope="col">Handle</th>
-                            </tr>
-                    <%        break;
-                          case "medico" :%>
-                            <tr>
-                              <th scope="col">#</th>
-                              <th scope="col">First</th>
-                              <th scope="col">Last</th>
-                              <th scope="col">Handle</th>
-                            </tr>
-                    <%        break;
-                      }%>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>teste</td>
-                      </tr>
-                    </tbody>
-            </table>
-        </form>    
+        <div class="container mt-5">
+            <div class="row">
+                <form class="form-group" action="" method="">
+                    
+                    
+                    <%
+                            String msgError = (String) request.getAttribute("msgError");
+                            if ((msgError != null) && (!msgError.isEmpty())) {%>
+                                <div class="alert alert-danger" role="alert">
+                                   <%= msgError %>
+                                </div>
+                        <% }%>
+
+                        <%
+                            String msgOperacaoRealizada = (String) request.getAttribute("msgOperacaoRealizada");
+                            if ((msgOperacaoRealizada != null) && (!msgOperacaoRealizada.isEmpty())) {%>
+                                <div class="alert alert-success" role="alert">
+                                   <%= msgOperacaoRealizada %>
+                                </div>
+                        <% }%>
+                              
+                    <table class="table table-light table-striped table-borderless form-control-sm">
+                            <thead>
+                            <%   
+                              ArrayList<Consulta> consulta = (ArrayList<Consulta>) request.getAttribute("consulta");  
+                              switch (perfil) {
+                                  case "paciente" :
+                            %>
+                                    <tr>
+                                      <th scope="col">#</th>
+                                      <th scope="col">Data</th>
+                                      <th scope="col">Descrição</th>
+                                      <th scope="col">Realizada</th>
+                                      <th scope="col">Medico</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                            <%         
+                                     for(Consulta c : consulta){
+                                        out.println("<tr>");
+                                        out.println("<td>"+ c.getId() +"</td>");
+                                        out.println("<td>"+ c.getData()+"</td>");
+                                        out.println("<td>"+ c.getDescricao() +"</td>");
+                                        out.println("<td>"+ c.getRealizada() +"</td>");
+                                        out.println("<td>"+ c.getIdMedico() +"</td>");
+                                        out.println("</tr>");
+                                     }       
+                            %>
+                                    
+                            <%      break;
+                                  case "administrador" :%>
+                                    <tr>
+                                      <th scope="col">#</th>
+                                      <th scope="col">First</th>
+                                      <th scope="col">Last</th>
+                                      <th scope="col">Handle</th>
+                                    </tr>
+                            <%        break;
+                                  case "medico" :%>
+                                    <tr>
+                                      <th scope="col">#</th>
+                                      <th scope="col">Data</th>
+                                      <th scope="col">Descrição</th>
+                                      <th scope="col">Realizada</th>
+                                      <th scope="col">Paciente</th>
+                                      <th scope="col"></th>
+                                      <th scope="col"></th>
+                                    </tr>
+                            <%        
+                                     for(Consulta c : consulta){
+                                        out.println("<tr>");
+                                        out.println("<td>"+ c.getId() +"</td>");
+                                        out.println("<td>"+ c.getData()+"</td>");
+                                        out.println("<td>"+ c.getDescricao() +"</td>");
+                                        out.println("<td>"+ c.getRealizada() +"</td>");
+                                        out.println("<td>"+ c.getIdPaciente() +"</td>");
+                                        out.println("<td><form action='ConsultaController?acao=Alterar"
+                                                +"&id="+c.getId()
+                                                +"&data="+c.getData()
+                                                +"&descricao="+c.getDescricao()
+                                                +"&Realizada="+c.getRealizada()
+                                                +"&idpaciente="+c.getIdPaciente()
+                                                +"&idmedico="+c.getIdMedico()
+                                                +"' method='POST'><button class='btn btn-primary' type='submit'>Alterar</button></form></td>");
+                                        out.println("<td><form action='ConsultaController?acao=Excluir&id="
+                                                +c.getId()
+                                                +"' method='POST'><button class='btn btn-primary' type='submit'>Excluir</button></form></td>");
+                                        out.println("</tr>");
+                                     }%>
+                    </tr>
+                            <%       break;
+                            }%>
+                            </tbody>
+                    </table>
+                </form>
+            </div>             
+        </div>                
     </body>
 </html>

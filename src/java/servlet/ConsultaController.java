@@ -38,7 +38,7 @@ public class ConsultaController extends HttpServlet {
         switch (acao) {
             case "Listar":
                 try {
-                    ArrayList<aplicacao.Consulta> listaConsultas = consultaDAO.read();
+                    ArrayList<aplicacao.Consulta> listaConsultas = consultaDAO.read(consulta.getId());
                     request.setAttribute("msgOperacaoRealizada", "");
                     request.setAttribute("listaConsultas", listaConsultas);
                     rd = request.getRequestDispatcher(home);
@@ -77,13 +77,28 @@ public class ConsultaController extends HttpServlet {
         //int id = Integer.parseInt(request.getParameter("id"));
         HttpSession session = request.getSession();
         Usuario usuarioLogado = (Usuario) session.getAttribute("usuario");
-        int idpaciente_user = usuarioLogado.getId();
+        String perfil = (String) session. getAttribute("perfil");
+        int idpaciente_user;
+        int idmedico_user;
+        
+        if (perfil.equals("paciente")){
+            idpaciente_user = usuarioLogado.getId();
+            idmedico_user = Integer.parseInt(request.getParameter("idmedico"));
+        }else if(perfil.equals("medico")){
+            idmedico_user = usuarioLogado.getId();
+            idpaciente_user = Integer.parseInt(request.getParameter("idpaciente")); 
+        }else{
+            idmedico_user = Integer.parseInt(request.getParameter("idmedico"));
+            idpaciente_user = Integer.parseInt(request.getParameter("idpaciente")); 
+        }
+        
+        
+        String id = request.getParameter("id");
         String acao = request.getParameter("acao");
         String data_user = request.getParameter("data");
         String horario_user = request.getParameter("horario");
         String data_hora = data_user + " " + horario_user;
         String descricao_user = request.getParameter("descricao");
-        int idmedico_user = Integer.parseInt(request.getParameter("idmedico"));
         String realizada = request.getParameter("realizada");
 
         RequestDispatcher rd;
@@ -129,7 +144,7 @@ public class ConsultaController extends HttpServlet {
                         request.setAttribute("msgOperacaoRealizada", "Alteração realizada com sucesso");
                         break;
                     case "Excluir":
-                        consultaDAO.delete(consulta);
+                        consultaDAO.delete(id);
                         request.setAttribute("msgOperacaoRealizada", "Exclusão realizada com sucesso");
                         break;
                 }
@@ -142,7 +157,7 @@ public class ConsultaController extends HttpServlet {
                 
             } catch (Exception ex) {
                 System.out.println(ex.getMessage());
-                throw new RuntimeException("Falha em uma query para cadastro de usuario");
+                throw new RuntimeException("Falha em uma query para cadastro");
             }
         }
     }

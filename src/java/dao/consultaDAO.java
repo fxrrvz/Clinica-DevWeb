@@ -45,16 +45,18 @@ public class consultaDAO {
         }
         
         
-    }
+    }   
     
-    public ArrayList<Consulta> read(){
+    public ArrayList<Consulta> read(int id){
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
         ArrayList<Consulta> lista = new ArrayList<>();
         
         try {
-            stmt = con.prepareStatement("SELECT * FROM Consulta");
+            stmt = con.prepareStatement("SELECT * FROM consulta WHERE idpaciente=? or idmedico=?");
+            stmt.setInt(1, id);
+            stmt.setInt(2, id);
             rs = stmt.executeQuery();
             
             while (rs.next()) {
@@ -72,7 +74,7 @@ public class consultaDAO {
         } catch (SQLException ex) {
             Logger.getLogger(consultaDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
         return lista;
         
     }
@@ -125,11 +127,11 @@ public class consultaDAO {
         }
     }
 
-    public void delete(Consulta consulta) throws Exception {
+    public void delete(String id) throws Exception {
         Connection con = ConnectionFactory.getConnection();
         try {
             PreparedStatement sql = con.prepareStatement("DELETE FROM consulta WHERE ID = ?;");
-            sql.setInt(1, consulta.getId());
+            sql.setString(1, id);
             sql.executeUpdate();
 
         } catch (SQLException ex) {
