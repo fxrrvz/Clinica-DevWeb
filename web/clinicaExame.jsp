@@ -15,19 +15,22 @@
         <title>Clinica exame</title>
     </head>
     <body>
-        <h1>Clínica exame</h1>
+        <h1>Realizar consulta exame</h1>
         <div class="container text-center">
             <div class="row mt-5">
                 <div class="col-4"></div>
                 <div class="col-4">
                     <div class="row">
-                        <form class="form-group">
+                        <form class="form-group" action="ConsultaController?acao=Alterar">
                             <div class="col-12">
-                                <input type="text" placeholder="ID Clínica" class=" form-control mb-3" />
+                                <input type="text" placeholder="Exame" class=" form-control mb-3" />
                             </div>
                             <div class="col-12">
                                 <input type="text" placeholder="ID Consulta" class="form-control mb-3"/>
-                            </div>   
+                            </div>
+                            <div class="col-12">
+                                <textarea type="text" name="descricao" placeholder="Descrição" class=" form-control mb-3"></textarea>
+                            </div>
                         </form>
                     </div>
                 </div>

@@ -5,6 +5,7 @@
  */
 package dao;
 
+import aplicacao.Especialidade;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -80,9 +81,58 @@ public class medicoDAO {
         }
 
         return lista;
-        
     }
     
+    public Medico getMedico(int id) throws Exception {
+    Connection con = ConnectionFactory.getConnection();
+        try {
+            Medico medico = new Medico();
+            PreparedStatement sql = con.prepareStatement("SELECT * FROM medico WHERE id = ?");
+            sql.setInt(1, id);
+            ResultSet rs = sql.executeQuery();
+            if (rs != null) {
+                while (rs.next()) {
+                    medico.setId(Integer.parseInt(rs.getString("id")));
+                    medico.setNome(rs.getString("nome"));
+                    medico.setCpf(rs.getString("cpf"));
+                    medico.setSenha(rs.getString("senha"));
+                    medico.setCrm(rs.getInt("crm"));
+                    medico.setEstadoCrm(rs.getString("estadocrm"));
+                    medico.setAutorizado(rs.getString("autorizado"));
+                    medico.setIdEspecialidade(rs.getInt("idespecialidade"));
+                }
+            }
+            return medico;
+
+        } catch (SQLException e) {
+            
+            throw new RuntimeException(e);
+        } finally {
+            ConnectionFactory.closeConnection(con);
+        }
+    }
+    
+    public Especialidade getEspecialidade(int id) throws Exception {
+    Connection con = ConnectionFactory.getConnection();
+        try {
+            Especialidade especialidade = new Especialidade();
+            PreparedStatement sql = con.prepareStatement("SELECT DISTINCT * FROM especialidade WHERE id = ?");
+            sql.setInt(1, id);
+            ResultSet resultado = sql.executeQuery();
+            if (resultado != null) {
+                while (resultado.next()) {
+                    especialidade.setId(Integer.parseInt(resultado.getString("ID")));
+                    especialidade.setDescricao(resultado.getString("DESCRICAO"));
+                }
+            }
+            return especialidade;
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Query de select (get) incorreta");
+        } finally {
+            ConnectionFactory.closeConnection(con);
+        }
+    }
     
 }
 

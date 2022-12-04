@@ -26,6 +26,15 @@ public class Consulta{
         this.idmedico = idmedico;
         this.idpaciente = idpaciente;
     }
+    
+    public Consulta(String data, String descricao, int idmedico, int idpaciente, String realizada) {
+        this.id = 0;
+        this.data = data;
+        this.descricao = descricao;
+        this.realizada = realizada;
+        this.idmedico = idmedico;
+        this.idpaciente = idpaciente;
+    }
 
     public Consulta(int id, String data, String descricao, String realizada, int idmedico, int idpaciente) {
         this.id = id;

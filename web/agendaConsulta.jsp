@@ -57,19 +57,14 @@
                             </div> 
                         <%
                             medicoDAO medicoDAO = new medicoDAO();
-                            pacienteDAO pacienteDAO = new pacienteDAO();
                             ArrayList<Medico> listaMedico = medicoDAO.read();
                             out.println("<select class='form-control mb-3' name='idmedico'");
                             for (Medico medico : listaMedico) {
-                                Especialidade especialidade = (Especialidade) pacienteDAO.getEspecialidade(medico.getIdEspecialidade());
+                                Especialidade especialidade = (Especialidade) medicoDAO.getEspecialidade(medico.getIdEspecialidade());
                                 out.println("<option value='" + medico.getId() + "'>" + medico.getNome() + " - " + especialidade.getDescricao() + "</option>");
                             }
                             out.println("</select>");                     
                         %>
-                        
-                            <div class="col-12">
-                                <textarea type="text" name="descricao" placeholder="Descrição" class=" form-control mb-3"></textarea>
-                            </div>
                             <button type="submit" class="btn btn-primary mt-1" style="background-color: #6610f2">Agendar</a>
                         </form>
                     </div>

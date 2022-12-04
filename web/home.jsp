@@ -3,6 +3,9 @@
     Created on : 08/10/2022, 00:23:50
     Author     : Ferraz-PC
 --%>
+<%@page import="aplicacao.Especialidade"%>
+<%@page import="aplicacao.Medico"%>
+<%@page import="dao.medicoDAO"%>
 <%@page import="aplicacao.Usuario"%>
 <%@page import="aplicacao.Consulta"%>
 <%@page import="java.util.ArrayList"%>
@@ -48,7 +51,7 @@
                         <%      break;
                             case "medico":%>  
                                 <li class="nav-item active">
-                                    <a class="nav-link" style="margin-right:30px;" href="cadastroExame.jsp">Cadastro Exame</a>
+                                    <a class="nav-link" style="margin-right:30px;" href="clinicaExame.jsp">Registrar Exame</a>
                                 </li>
                         <%      break;
                             }%>
@@ -85,7 +88,8 @@
                               
                     <table class="table table-light table-striped table-borderless form-control-sm">
                             <thead>
-                            <%   
+                            <%
+                              medicoDAO medicoDAO = new medicoDAO();
                               ArrayList<Consulta> consulta = (ArrayList<Consulta>) request.getAttribute("consulta");  
                               switch (perfil) {
                                   case "paciente" :
@@ -96,23 +100,26 @@
                                       <th scope="col">Descrição</th>
                                       <th scope="col">Realizada</th>
                                       <th scope="col">Medico</th>
+                                      <th scope="col">Especialidade</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                             <%         
                                      for(Consulta c : consulta){
+                                        Medico medico = (Medico) medicoDAO.getMedico(c.getIdMedico());
+                                        Especialidade especialidade = (Especialidade) medicoDAO.getEspecialidade(medico.getIdEspecialidade());
+                                        out.println("</select>"); 
                                         out.println("<tr>");
                                         out.println("<td>"+ c.getId() +"</td>");
                                         out.println("<td>"+ c.getData()+"</td>");
                                         out.println("<td>"+ c.getDescricao() +"</td>");
                                         out.println("<td>"+ c.getRealizada() +"</td>");
-                                        out.println("<td>"+ c.getIdMedico() +"</td>");
+                                        out.println("<td>" + medico.getNome() + "</td>");
+                                        out.println("<td>" + especialidade.getDescricao() + "</td>");
+                                        }
                                         out.println("</tr>");
-                                     }       
-                            %>
-                                    
-                            <%      break;
-                                  case "administrador" :%>
+                                    break;
+                                    case "administrador" :%>
                                     <tr>
                                       <th scope="col">#</th>
                                       <th scope="col">First</th>
@@ -150,9 +157,8 @@
                                                 +c.getId()
                                                 +"' method='POST'><button class='btn btn-primary' type='submit'>Excluir</button></form></td>");
                                         out.println("</tr>");
-                                     }%>
-                    </tr>
-                            <%       break;
+                                     }
+                                   break;
                             }%>
                             </tbody>
                     </table>

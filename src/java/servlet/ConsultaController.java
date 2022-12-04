@@ -80,16 +80,24 @@ public class ConsultaController extends HttpServlet {
         String perfil = (String) session. getAttribute("perfil");
         int idpaciente_user;
         int idmedico_user;
-        
+        String descricao_user;
+        String realizada;
         if (perfil.equals("paciente")){
             idpaciente_user = usuarioLogado.getId();
             idmedico_user = Integer.parseInt(request.getParameter("idmedico"));
+            descricao_user = "Pendente";
+            realizada = "N";
+            
         }else if(perfil.equals("medico")){
             idmedico_user = usuarioLogado.getId();
-            idpaciente_user = Integer.parseInt(request.getParameter("idpaciente")); 
+            idpaciente_user = Integer.parseInt(request.getParameter("idpaciente"));
+            descricao_user = request.getParameter("descricao");
+            realizada = "S";
         }else{
             idmedico_user = Integer.parseInt(request.getParameter("idmedico"));
-            idpaciente_user = Integer.parseInt(request.getParameter("idpaciente")); 
+            idpaciente_user = Integer.parseInt(request.getParameter("idpaciente"));
+            descricao_user = request.getParameter("descricao");
+            realizada = request.getParameter("realizada");
         }
         
         
@@ -98,8 +106,6 @@ public class ConsultaController extends HttpServlet {
         String data_user = request.getParameter("data");
         String horario_user = request.getParameter("horario");
         String data_hora = data_user + " " + horario_user;
-        String descricao_user = request.getParameter("descricao");
-        String realizada = request.getParameter("realizada");
 
         RequestDispatcher rd;
 
@@ -130,14 +136,18 @@ public class ConsultaController extends HttpServlet {
             rd.forward(request, response);
 
         } else {
-            Consulta consulta = new Consulta(data_hora, descricao_user, idmedico_user, idpaciente_user);
+            Consulta consulta = new Consulta(data_hora, descricao_user, idmedico_user, idpaciente_user, realizada);
             consultaDAO consultaDAO = new consultaDAO();
 
             try {
                 switch (acao) {
                     case "Incluir":
                         consultaDAO.create(consulta);
+                        ArrayList<Consulta> consultas = (ArrayList<Consulta>) consultaDAO.read(usuarioLogado.getId());
+                        request.setAttribute("consulta", consultas);
                         request.setAttribute("msgOperacaoRealizada", "Cadastro realizado com sucesso!");
+                        rd = request.getRequestDispatcher("home.jsp");
+                        rd.forward(request, response);
                         break;
                     case "Alterar":
                         consultaDAO.update(consulta);
@@ -152,6 +162,9 @@ public class ConsultaController extends HttpServlet {
                 ArrayList<aplicacao.Paciente> listaUsuarios = pacienteDAO.ListaDeUsuarios();
                 request.setAttribute("listaUsuarios", listaUsuarios);
                 */
+                consultaDAO.create(consulta);
+                ArrayList<Consulta> consultas = (ArrayList<Consulta>) consultaDAO.read(usuarioLogado.getId());
+                request.setAttribute("consulta", consultas);
                 rd = request.getRequestDispatcher(home);
                 rd.forward(request, response);
                 
