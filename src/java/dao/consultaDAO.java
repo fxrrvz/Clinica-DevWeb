@@ -127,6 +127,22 @@ public class consultaDAO {
         }
     }
 
+     public void realizaConsulta(int id, String descricao) throws Exception {
+        Connection con = ConnectionFactory.getConnection();
+        try {
+            PreparedStatement sql = con.prepareStatement("UPDATE consulta SET descricao = ?, realizada = S  WHERE ID = ?;");
+            sql.setString(1, descricao);
+            sql.setInt(2, id);
+            sql.executeUpdate();
+
+        } catch (SQLException ex) {
+            System.out.print(ex);
+            throw new RuntimeException("Query de update (alterar) incorreta");
+        } finally {
+            ConnectionFactory.closeConnection(con);
+        }
+    }
+    
     public void delete(String id) throws Exception {
         Connection con = ConnectionFactory.getConnection();
         try {

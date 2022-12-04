@@ -49,10 +49,7 @@
                                     <a class="nav-link" style="margin-right:30px;" href="clinicaEspecialidade.jsp">Clinica especialidade</a>
                                 </li>
                         <%      break;
-                            case "medico":%>  
-                                <li class="nav-item active">
-                                    <a class="nav-link" style="margin-right:30px;" href="clinicaExame.jsp">Registrar Exame</a>
-                                </li>
+                            case "medico":%>
                         <%      break;
                             }%>
                     </ul>
@@ -145,16 +142,11 @@
                                         out.println("<td>"+ c.getDescricao() +"</td>");
                                         out.println("<td>"+ c.getRealizada() +"</td>");
                                         out.println("<td>"+ c.getIdPaciente() +"</td>");
-                                        out.println("<td><form action='ConsultaController?acao=Alterar"
-                                                +"&id="+c.getId()
-                                                +"&data="+c.getData()
-                                                +"&descricao="+c.getDescricao()
-                                                +"&Realizada="+c.getRealizada()
-                                                +"&idpaciente="+c.getIdPaciente()
-                                                +"&idmedico="+c.getIdMedico()
-                                                +"' method='POST'><button class='btn btn-primary' type='submit'>Alterar</button></form></td>");
-                                        out.println("<td><form action='ConsultaController?acao=Excluir&id="
-                                                +c.getId()
+                                        out.println("<td><form action='ConsultaController?acao=RealizarConsulta' method='GET'>");
+                                        out.println("<input type='hidden' name='id' value="+c.getId()+" class='form-control'>");
+                                        out.println("<input type='hidden' name='descricao' value="+c.getDescricao()+" class='form-control'>");
+                                        out.println("<button class='btn btn-primary' type='submit'>Realizar Consulta</button></form></td>");
+                                        out.println("<td><form action='ConsultaController?acao=Excluir&id="+c.getId()
                                                 +"' method='POST'><button class='btn btn-primary' type='submit'>Excluir</button></form></td>");
                                         out.println("</tr>");
                                      }

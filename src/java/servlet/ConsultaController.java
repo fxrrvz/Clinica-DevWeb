@@ -51,6 +51,21 @@ public class ConsultaController extends HttpServlet {
                 }
                 break;
             case "Alterar":
+                
+                break; 
+            case "RealizarConsulta":
+                try {
+                    int id = Integer.parseInt(request.getParameter("id"));
+                    String descricao = request.getParameter("descricao");
+                    request.setAttribute("id", id);
+                    request.setAttribute("descricao", descricao);
+                    rd = request.getRequestDispatcher("clinicaExame.jsp");
+                    rd.forward(request, response); 
+                } catch (Exception ex) {
+                    System.out.println(ex.getMessage()+"\n");
+                    throw new RuntimeException("Falha em uma query para cadastro da consulta");
+                }
+                break;
             case "Excluir":
                 try {
                     int id = Integer.parseInt(request.getParameter("id"));
@@ -82,22 +97,25 @@ public class ConsultaController extends HttpServlet {
         int idmedico_user;
         String descricao_user;
         String realizada;
-        if (perfil.equals("paciente")){
-            idpaciente_user = usuarioLogado.getId();
-            idmedico_user = Integer.parseInt(request.getParameter("idmedico"));
-            descricao_user = "Pendente";
-            realizada = "N";
-            
-        }else if(perfil.equals("medico")){
-            idmedico_user = usuarioLogado.getId();
-            idpaciente_user = Integer.parseInt(request.getParameter("idpaciente"));
-            descricao_user = request.getParameter("descricao");
-            realizada = "S";
-        }else{
-            idmedico_user = Integer.parseInt(request.getParameter("idmedico"));
-            idpaciente_user = Integer.parseInt(request.getParameter("idpaciente"));
-            descricao_user = request.getParameter("descricao");
-            realizada = request.getParameter("realizada");
+        switch (perfil) {
+            case "paciente":
+                idpaciente_user = usuarioLogado.getId();
+                idmedico_user = Integer.parseInt(request.getParameter("idmedico"));
+                descricao_user = "Pendente";
+                realizada = "N";
+                break;
+            case "medico":
+                idmedico_user = usuarioLogado.getId();
+                idpaciente_user = Integer.parseInt(request.getParameter("idpaciente"));
+                descricao_user = request.getParameter("descricao");
+                realizada = "S";
+                break;
+            default:
+                idmedico_user = Integer.parseInt(request.getParameter("idmedico"));
+                idpaciente_user = Integer.parseInt(request.getParameter("idpaciente"));
+                descricao_user = request.getParameter("descricao");
+                realizada = request.getParameter("realizada");
+                break;
         }
         
         
@@ -152,6 +170,9 @@ public class ConsultaController extends HttpServlet {
                     case "Alterar":
                         consultaDAO.update(consulta);
                         request.setAttribute("msgOperacaoRealizada", "Alteração realizada com sucesso");
+                        break;
+                    case "RealizarConsulta":
+                        consultaDAO.realizaConsulta(Integer.parseInt(id), descricao_user);
                         break;
                     case "Excluir":
                         consultaDAO.delete(id);
