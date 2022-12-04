@@ -27,24 +27,22 @@ import connection.ConnectionFactory;
 
 public class descricaoDAO {
     
-    public void create(Descricao desc, String banco){
+    public void create(Descricao desc, String tabela){
         
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         
         try {
-            stmt = con.prepareStatement("INSERT INTO "
-                                        + banco + "(descricao)"
-                                        +" VALUES(?)");
+            stmt = con.prepareStatement("INSERT INTO "+ tabela + "(descricao) VALUES(?)");
             stmt.setString(1, desc.getDescricao());
             
             stmt.executeUpdate();
             
-            JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
+            System.out.print("Salvo com sucesso!");
             
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, ex);
-            JOptionPane.showMessageDialog(null, "Erro ao salvar!");
+            System.out.print(ex);
+            System.out.print("Erro ao salvar!");
         }finally{
             ConnectionFactory.closeConnection(con, stmt);
         }

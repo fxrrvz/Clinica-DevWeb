@@ -40,13 +40,19 @@
                                     <a class="nav-link" style="margin-right:30px;" href="cadastroPlano.jsp">Cadastrar plano</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" style="margin-right:30px;" href="cadastroAdmin.jsp">Cadastrar administrador</a>
+                                    <a class="nav-link" style="margin-right:30px;" href="view/usuario/cadastroAdmin.jsp">Cadastrar administrador</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" style="margin-right:30px;" href="cadastroMedico.jsp">Cadastrar médico</a>
+                                    <a class="nav-link" style="margin-right:30px;" href="view/usuario/cadastroMedico.jsp">Cadastrar médico</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" style="margin-right:30px;" href="clinicaEspecialidade.jsp">Clinica especialidade</a>
+                                    <a class="nav-link" style="margin-right:30px;" href="clinicaEspecialidade.jsp">Cadastrar especialidade</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" style="margin-right:30px;" href="cadastroTipoExame.jsp">Cadastrar Tipo Exame</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" style="margin-right:30px;" href="cadastroPlano.jsp">Cadastrar Tipo Plano</a>
                                 </li>
                         <%      break;
                             case "medico":%>
@@ -131,8 +137,7 @@
                                       <th scope="col">Descrição</th>
                                       <th scope="col">Realizada</th>
                                       <th scope="col">Paciente</th>
-                                      <th scope="col"></th>
-                                      <th scope="col"></th>
+                                      <th scope="col">Realizar Consulta</th>
                                     </tr>
                             <%        
                                      for(Consulta c : consulta){
@@ -143,7 +148,7 @@
                                         out.println("<td>"+ c.getRealizada() +"</td>");
                                         out.println("<td>"+ c.getIdPaciente() +"</td>");         
                                         out.println("<td><a href='ConsultaController?acao=RealizarConsulta&method=get&idconsulta="+c.getId()+"' class='btn btn-primary' >Realizar Consulta</a></td>");
-                                        out.println("<td><a href='ConsultaController?acao=Excluir&method=post&idconsulta="+c.getId()+"' class='btn btn-primary' >Excluir</a></td>");
+                                        //out.println("<td><a href='ConsultaController?acao=Excluir&method=post&idconsulta="+c.getId()+"' class='btn btn-primary' >Excluir</a></td>");
                                         out.println("</tr>");
                                      }
                                    break;
