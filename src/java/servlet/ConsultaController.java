@@ -95,36 +95,43 @@ public class ConsultaController extends HttpServlet {
         String descricao_user;
         String realizada;
         String idtipoexame = "";
-        int idconsulta = 0;
+        String idconsulta = "";
+        String acao;
+        String data_user;
+        String horario_user;
+        String data_hora;
         switch (perfil) {
             case "paciente":
                 idpaciente_user = usuarioLogado.getId();
                 idmedico_user = Integer.parseInt(request.getParameter("idmedico"));
                 descricao_user = "Pendente";
                 realizada = "N";
+                data_user = request.getParameter("data");
+                horario_user = request.getParameter("horario");
+                data_hora = data_user + " " + horario_user;
                 break;
             case "medico":
                 idmedico_user = usuarioLogado.getId();
-                idpaciente_user = 0;
+                idpaciente_user = 1;
                 descricao_user = request.getParameter("descricao");
                 idtipoexame = request.getParameter("idtipoexame");
-                idconsulta = Integer.parseInt(request.getParameter("idconsulta"));
+                idconsulta = request.getParameter("idconsulta");
                 realizada = "S";
+                data_user = "a";
+                horario_user = "a";
+                data_hora = "a";
                 break;
             default:
                 idmedico_user = Integer.parseInt(request.getParameter("idmedico"));
                 idpaciente_user = Integer.parseInt(request.getParameter("idpaciente"));
                 descricao_user = request.getParameter("descricao");
                 realizada = request.getParameter("realizada");
+                data_user = request.getParameter("data");
+                horario_user = request.getParameter("horario");
+                data_hora = data_user + " " + horario_user;
                 break;
         }
-        
-        
-        String id = request.getParameter("id");
-        String acao = request.getParameter("acao");
-        String data_user = request.getParameter("data");
-        String horario_user = request.getParameter("horario");
-        String data_hora = data_user + " " + horario_user;
+        acao = request.getParameter("acao");
 
         RequestDispatcher rd;
 
@@ -171,9 +178,9 @@ public class ConsultaController extends HttpServlet {
                         rd = request.getRequestDispatcher("home.jsp");
                         break;
                     case "RealizarConsulta":
-                        consultaDAO.realizaConsulta(idconsulta, descricao_user);
+                        consultaDAO.realizaConsulta(Integer.parseInt(idconsulta), descricao_user);
                         if(!idtipoexame.equals("")){
-                            Exames exame = new Exames(Integer.parseInt(idtipoexame), idconsulta);
+                            Exames exame = new Exames(Integer.parseInt(idtipoexame), Integer.parseInt(idconsulta));
                             examesDAO.create(exame);
                         }
                         consultas = (ArrayList<Consulta>) consultaDAO.read(usuarioLogado.getId());
@@ -182,7 +189,7 @@ public class ConsultaController extends HttpServlet {
                         rd = request.getRequestDispatcher("home.jsp");
                         break;
                     case "Excluir":
-                        consultaDAO.delete(id);
+                        consultaDAO.delete(idconsulta);
                         consultas = (ArrayList<Consulta>) consultaDAO.read(usuarioLogado.getId());
                         request.setAttribute("consulta", consultas);
                         request.setAttribute("msgOperacaoRealizada", "Exclusão realizada com sucesso");

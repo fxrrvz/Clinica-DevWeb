@@ -15,6 +15,11 @@
         <title>Realizar Consulta</title>
     </head>
     <body>
+        <%
+
+        String idconsulta = request.getParameter("idconsulta");
+
+        %>
         <h1>Realizar consulta</h1>
         <div class="container text-center">
             <div class="row mt-5">
@@ -24,6 +29,7 @@
                         <form class="form-group" action="ConsultaController?acao=RealizarConsulta" method="POST">
                             <div class="col-12">
                                 <input type="text" name="idtipoexame" placeholder="Exame" class="form-control mb-3" />
+                                <input type="hidden" name="idconsulta" value="<%= idconsulta %>" />
                             </div>
                             <div class="col-12">
                                 <textarea type="text" name="descricao" placeholder="Descrição" class="form-control mb-3"></textarea>
