@@ -15,7 +15,7 @@
         <title>Clinica exame</title>
     </head>
     <body>
-        <h1>Realizar consulta exame</h1>
+        <h1>Realizar consulta</h1>
         <div class="container text-center">
             <div class="row mt-5">
                 <div class="col-4"></div>
