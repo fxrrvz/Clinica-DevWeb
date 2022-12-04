@@ -143,7 +143,7 @@
                                         out.println("<td>"+ c.getRealizada() +"</td>");
                                         out.println("<td>"+ c.getIdPaciente() +"</td>");         
                                         out.println("<td><a href='ConsultaController?acao=RealizarConsulta&method=get&idconsulta="+c.getId()+"' class='btn btn-primary' >Realizar Consulta</a></td>");
-                                        out.println("<td><a href='ConsultaController?acao=Excluir&method=get&idconsulta="+c.getId()+"' class='btn btn-primary' >Excluir</a></td>");
+                                        out.println("<td><a href='ConsultaController?acao=Excluir&method=post&idconsulta="+c.getId()+"' class='btn btn-primary' >Excluir</a></td>");
                                         out.println("</tr>");
                                      }
                                    break;

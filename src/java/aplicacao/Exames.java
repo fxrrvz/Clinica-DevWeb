@@ -14,6 +14,18 @@ public class Exames {
     private int idtipoexame;
     private int idconsulta;
 
+    public Exames(int idtipoexame, int idconsulta) {
+        this.idtipoexame = idtipoexame;
+        this.idconsulta = idconsulta;
+    }
+
+    public Exames() {
+        this.id = 0;
+        this.idtipoexame = 0;
+        this.idconsulta = 0;
+    }
+
+    
     public int getId() {
         return id;
     }
