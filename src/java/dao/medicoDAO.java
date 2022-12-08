@@ -28,8 +28,8 @@ public class medicoDAO {
         PreparedStatement stmt = null;
         
         try {
-            stmt = con.prepareStatement("INSERT INTO medico(nome, crm, estadocrm, cpf, senha, autorizado, idespecialidade)" +
-                                        " VALUES(?,?,?,?,?,?,?,?)");
+            stmt = con.prepareStatement("INSERT INTO medico(nome, cpf, senha, crm, estadocrm, autorizado, idespecialidade)" +
+                                        " VALUES(?,?,?,?,?,?,?)");
             stmt.setString(1, med.getNome());
             stmt.setString(2, med.getCpf());
             stmt.setString(3, med.getSenha());
@@ -43,8 +43,8 @@ public class medicoDAO {
             JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
             
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, ex);
-            JOptionPane.showMessageDialog(null, "Erro ao salvar!");
+            System.out.print(ex);
+            System.out.print("Erro ao salvar!");
         }finally{
             ConnectionFactory.closeConnection(con, stmt);
         }

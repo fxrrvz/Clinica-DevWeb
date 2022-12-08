@@ -40,10 +40,10 @@
                                     <a class="nav-link" style="margin-right:30px;" href="cadastroPlano.jsp">Cadastrar plano</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" style="margin-right:30px;" href="view/usuario/cadastroAdmin.jsp">Cadastrar administrador</a>
+                                    <a class="nav-link" style="margin-right:30px;" href="AdministradorController?acao=AdmIncluir">Cadastrar administrador</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" style="margin-right:30px;" href="view/usuario/cadastroMedico.jsp">Cadastrar médico</a>
+                                    <a class="nav-link" style="margin-right:30px;" href="MedicoController?acao=AdmIncluir">Cadastrar médico</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" style="margin-right:30px;" href="clinicaEspecialidade.jsp">Cadastrar especialidade</a>
@@ -53,6 +53,9 @@
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" style="margin-right:30px;" href="cadastroPlano.jsp">Cadastrar Tipo Plano</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" style="margin-right:30px;" href="PacienteController?acao=AdmIncluir">Cadastrar Paciente</a>
                                 </li>
                         <%      break;
                             case "medico":%>
@@ -146,8 +149,12 @@
                                         out.println("<td>"+ c.getData()+"</td>");
                                         out.println("<td>"+ c.getDescricao() +"</td>");
                                         out.println("<td>"+ c.getRealizada() +"</td>");
-                                        out.println("<td>"+ c.getIdPaciente() +"</td>");         
-                                        out.println("<td><a href='ConsultaController?acao=RealizarConsulta&method=get&idconsulta="+c.getId()+"' class='btn btn-primary' >Realizar Consulta</a></td>");
+                                        out.println("<td>"+ c.getIdPaciente() +"</td>");
+                                        if(c.getRealizada().equals("N")){
+                                            out.println("<td><a href='ConsultaController?acao=RealizarConsulta&method=get&idconsulta="+c.getId()+"' class='btn btn-primary' >Realizar Consulta</a></td>");
+                                        }else{
+                                            out.println("<td><a class='btn btn-primary' style='background-color: #808080'>Realizar Consulta</a></td>");
+                                        }
                                         //out.println("<td><a href='ConsultaController?acao=Excluir&method=post&idconsulta="+c.getId()+"' class='btn btn-primary' >Excluir</a></td>");
                                         out.println("</tr>");
                                      }

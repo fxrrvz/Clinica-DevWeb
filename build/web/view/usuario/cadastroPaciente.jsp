@@ -23,13 +23,21 @@
                     <div class="col-4">
                         <div class="row">
                             <%
+                            String perfil = (String) session.getAttribute("perfil");
+                            String acao;
+                            if (perfil.equals("administrador")){
+                                acao = "AdmIncluir";
+                            }else{
+                                acao = "Incluir";
+                            }
+                            
                             String msgError = (String) request.getAttribute("msgError");
                             if ((msgError != null) && (!msgError.isEmpty())) {%>
                                 <div class="alert alert-danger" role="alert">
                                    <%= msgError %>
                                 </div>
                             <% }%>
-                            <form class="form-group" action="PacienteController?acao=Incluir" method="POST">
+                            <form class="form-group" action="PacienteController?acao=<%= acao %>" method="POST">
                                 <div class="col-12">
                                     <input type="text" placeholder="Nome" name="nome" class=" form-control mb-3" />
                                 </div>
@@ -45,13 +53,12 @@
                                 <div class="col-12">
                                     <input type="password" placeholder="Confirmar senha" name="csenha" class="form-control mb-3"/>
                                 </div>
-                                <button type="submit">Cadastrar</button>
+                                <button class="btn btn-primary mt-3" type="submit" style="background-color: #6610f2">Cadastrar</button>
                             </form>
                         </div>
                     </div>
                     <div class="col-4"></div>
                 </div>
-               
             </div>
         </div>
     </body>

@@ -3,15 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/uff/devweb/Clinica-DevWeb/src/java/servlet/PacienteController.java</file>
-            <file>file:/E:/uff/devweb/Clinica-DevWeb/src/java/aplicacao/Descricao.java</file>
-            <file>file:/E:/uff/devweb/Clinica-DevWeb/src/java/servlet/ConsultaController.java</file>
-            <file>file:/E:/uff/devweb/Clinica-DevWeb/src/java/dao/descricaoDAO.java</file>
-            <file>file:/E:/uff/devweb/Clinica-DevWeb/web/clinicaEspecialidade.jsp</file>
-            <file>file:/E:/uff/devweb/Clinica-DevWeb/web/cadastroPlano.jsp</file>
-            <file>file:/E:/uff/devweb/Clinica-DevWeb/web/cadastroTipoExame.jsp</file>
-            <file>file:/E:/uff/devweb/Clinica-DevWeb/src/java/servlet/DescricaoController.java</file>
-            <file>file:/E:/uff/devweb/Clinica-DevWeb/web/home.jsp</file>
+            <file>file:/C:/uff/devweb/Clinica-DevWeb/src/java/servlet/MedicoController.java</file>
+            <file>file:/C:/uff/devweb/Clinica-DevWeb/src/java/dao/medicoDAO.java</file>
+            <file>file:/C:/uff/devweb/Clinica-DevWeb/src/java/servlet/PacienteController.java</file>
+            <file>file:/C:/uff/devweb/Clinica-DevWeb/src/java/aplicacao/Medico.java</file>
+            <file>file:/C:/uff/devweb/Clinica-DevWeb/web/view/usuario/cadastroPaciente.jsp</file>
+            <file>file:/C:/uff/devweb/Clinica-DevWeb/web/view/usuario/cadastroMedico.jsp</file>
+            <file>file:/C:/uff/devweb/Clinica-DevWeb/web/home.jsp</file>
         </group>
     </open-files>
 </project-private>

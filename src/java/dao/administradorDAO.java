@@ -30,18 +30,18 @@ public class administradorDAO {
         
         try {
             stmt = con.prepareStatement("INSERT INTO administrador(nome, cpf, senha)" +
-                                        " VALUES(?,?,?,?)");
+                                        " VALUES(?,?,?)");
             stmt.setString(1, adm.getNome());
             stmt.setString(2, adm.getCpf());
             stmt.setString(3, adm.getSenha());
             
             stmt.executeUpdate();
             
-            JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
+            System.out.print("Salvo com sucesso!");
             
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, ex);
-            JOptionPane.showMessageDialog(null, "Erro ao salvar!");
+            System.out.print(ex);
+            System.out.print("Erro ao salvar!");
         }finally{
             ConnectionFactory.closeConnection(con, stmt);
         }

@@ -43,7 +43,7 @@
                     </select>
                     <input type="text" placeholder="CPF" name="cpf" class="form-control mb-3"/>
                     <input type="password" placeholder="Senha" name="senha" class="form-control mb-3"/>
-                    <button class="btn btn-primary" type="submit">Login</button>
+                    <button class="btn btn-primary" style="background-color: #6610f2" type="submit">Login</button>
                     <a href="index.jsp" class="btn btn-primary" style="background-color: #6610f2">Voltar</a>
                 </form>
                 </div>

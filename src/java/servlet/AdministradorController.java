@@ -13,7 +13,7 @@ import javax.servlet.RequestDispatcher;
 
 @WebServlet(name = "AdministradorController", urlPatterns = {"/AdministradorController"})
 public class AdministradorController extends HttpServlet {
-
+    String view = "view/usuario/cadastroAdmin.jsp";
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -54,7 +54,7 @@ public class AdministradorController extends HttpServlet {
         request.setAttribute("msgError", "");
         request.setAttribute("acao", acao);
 
-        rd = request.getRequestDispatcher("/login.jsp");
+        rd = request.getRequestDispatcher(view);
         rd.forward(request, response);
 
     }
@@ -63,20 +63,19 @@ public class AdministradorController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        int id = Integer.parseInt(request.getParameter("id"));
+        //int id = Integer.parseInt(request.getParameter("id"));
         String nome_user = request.getParameter("nome");
         String cpf_user = request.getParameter("cpf");
-        String endereco_user = request.getParameter("endereco");
         String senha_user = request.getParameter("senha");
-        String btEnviar = request.getParameter("btEnviar");
+        String acao = request.getParameter("acao");
 
         RequestDispatcher rd;
 
-        if (nome_user.isEmpty() || cpf_user.isEmpty() || endereco_user.isEmpty() || senha_user.isEmpty()) {
+        if (nome_user.isEmpty() || cpf_user.isEmpty() || senha_user.isEmpty()) {
 
             Administrador administrador = new Administrador();
-            switch (btEnviar) {
-                case "Incluir":
+            switch (acao) {
+                /*case "Incluir":
                     request.setAttribute("acao", "Incluir");
                     break;
                 case "Alterar":
@@ -88,24 +87,24 @@ public class AdministradorController extends HttpServlet {
                         System.out.println(ex.getMessage());
                         throw new RuntimeException("Falha em uma query para cadastro de administrador");
                     }
-                    break;
+                    break;*/
+                case "AdmIncluir":
+                    request.setAttribute("acao", "AdmIncluir");
             }
 
             request.setAttribute("msgError", "É necessário preencher todos os campos");
             request.setAttribute("administrador", administrador);
 
-            rd = request.getRequestDispatcher("/login.jsp");
+            rd = request.getRequestDispatcher(view);
             rd.forward(request, response);
 
         } else {
 
             Administrador administrador = new Administrador(nome_user, cpf_user, senha_user);
-            administrador.setId(id);
-
             administradorDAO administradorDAO = new administradorDAO();
 
             try {
-                switch (btEnviar) {
+                switch (acao) {
                     case "Incluir":
                         administradorDAO.create(administrador);
                         request.setAttribute("msgOperacaoRealizada", "Inclusão realizada com sucesso");
@@ -118,12 +117,16 @@ public class AdministradorController extends HttpServlet {
                         administradorDAO.create(administrador);
                         request.setAttribute("msgOperacaoRealizada", "Exclusão realizada com sucesso");
                         break;
+                    case "AdmIncluir":
+                        administradorDAO.create(administrador);
+                        request.setAttribute("msgOperacaoRealizada", "Inclusão realizada com sucesso");
+                        break;
                 }
 
                 ArrayList<Administrador> listaadministrador = administradorDAO.read();
                 request.setAttribute("listaadministrador", listaadministrador);
 
-                rd = request.getRequestDispatcher("/login.jsp");
+                rd = request.getRequestDispatcher("/home.jsp");
                 rd.forward(request, response);
 
             } catch (Exception ex) {

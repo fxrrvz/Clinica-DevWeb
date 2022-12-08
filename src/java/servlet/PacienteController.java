@@ -92,6 +92,9 @@ public class PacienteController extends HttpServlet {
                     request.setAttribute("acao", "Incluir");
                     break;
                 case "Alterar":
+                case "AdmIncluir":
+                request.setAttribute("acao", "AdmIncluir");
+                break;
                 /*case "Excluir":
                     try {
                         pacienteDAO pacienteDAO = new pacienteDAO();
@@ -118,22 +121,32 @@ public class PacienteController extends HttpServlet {
                     case "Incluir":
                         pacienteDAO.create(paciente);
                         request.setAttribute("msgOperacaoRealizada", "Cadastro realizado com sucesso!");
+                        rd = request.getRequestDispatcher("/login.jsp");
+                        rd.forward(request, response);
                         break;
                     case "Alterar":
                         pacienteDAO.update(paciente);
                         request.setAttribute("msgOperacaoRealizada", "Alteração realizada com sucesso");
+                        rd = request.getRequestDispatcher("/login.jsp");
+                        rd.forward(request, response);
                         break;
                     case "Excluir":
                         pacienteDAO.delete(paciente);
                         request.setAttribute("msgOperacaoRealizada", "Exclusão realizada com sucesso");
+                        rd = request.getRequestDispatcher("/login.jsp");
+                        rd.forward(request, response);
+                        break;
+                    case "AdmIncluir":
+                        pacienteDAO.create(paciente);
+                        request.setAttribute("msgOperacaoRealizada", "Cadastro realizado com sucesso!");
+                        rd = request.getRequestDispatcher("/home.jsp");
+                        rd.forward(request, response);
                         break;
                 }
                 /*
                 ArrayList<aplicacao.Paciente> listaUsuarios = pacienteDAO.ListaDeUsuarios();
                 request.setAttribute("listaUsuarios", listaUsuarios);
                 */
-                rd = request.getRequestDispatcher("/login.jsp");
-                rd.forward(request, response);
                 
             } catch (Exception ex) {
                 System.out.println(ex.getMessage());

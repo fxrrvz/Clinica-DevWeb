@@ -19,6 +19,29 @@ public class Medico{
     public String autorizado;
     public int idespecialidade;
 
+    public Medico(String nome, String cpf, String senha, int crm, String estadocrm, String autorizado, int idespecialidade) {
+        this.id = 0;
+        this.nome = nome;
+        this.cpf = cpf;
+        this.senha = senha;
+        this.crm = crm;
+        this.estadocrm = estadocrm;
+        this.autorizado = autorizado;
+        this.idespecialidade = idespecialidade;
+    }
+
+    public Medico() {
+        this.id = 0;
+        this.nome = "";
+        this.cpf = "";
+        this.senha = "";
+        this.crm = 0;
+        this.estadocrm = "";
+        this.autorizado = "";
+        this.idespecialidade = 0;
+    }
+
+    
     public int getId() {
         return id;
     }
