@@ -46,14 +46,14 @@ public class examesDAO {
         
     }
     
-    public List<Exames> read(){
+    public ArrayList<Exames> read(){
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        List<Exames> lista = new ArrayList<>();
+        ArrayList<Exames> lista = new ArrayList<>();
         
         try {
-            stmt = con.prepareStatement("SELECT * FROM Consulta");
+            stmt = con.prepareStatement("SELECT * FROM exames");
             rs = stmt.executeQuery();
             
             while (rs.next()) {

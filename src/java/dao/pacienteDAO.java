@@ -47,11 +47,11 @@ public class pacienteDAO {
         }
     }
     
-    public List<Paciente> read(){
+    public ArrayList<Paciente> read(){
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        List<Paciente> lista = new ArrayList<>();
+        ArrayList<Paciente> lista = new ArrayList<>();
         
         try {
             stmt = con.prepareStatement("SELECT * FROM paciente");

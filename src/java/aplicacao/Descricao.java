@@ -10,14 +10,25 @@ package aplicacao;
  * @author Ferraz-PC
  */
 public class Descricao {
+    private int id;
     private String descricao;
 
     public Descricao(String descricao) {
+        this.id = 0;
         this.descricao = descricao;
     }
 
     public Descricao() {
+        this.id = 0;
         this.descricao = "";
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
     
     

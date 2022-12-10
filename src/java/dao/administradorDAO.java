@@ -48,6 +48,39 @@ public class administradorDAO {
         
     }
     
+    public void delete(Administrador administrador) throws Exception {
+        Connection con = ConnectionFactory.getConnection();
+        try {
+            PreparedStatement sql = con.prepareStatement("DELETE FROM administrador WHERE ID = ?;");
+            sql.setInt(1, administrador.getId());
+            sql.executeUpdate();
+
+        } catch (SQLException ex) {
+            System.out.print(ex);
+            throw new RuntimeException("Query de delete (excluir) incorreta");
+        } finally {
+            ConnectionFactory.closeConnection(con);
+        }
+    }
+    
+    public void update(Administrador administrador) throws Exception {
+        Connection con = ConnectionFactory.getConnection();
+        try {
+            PreparedStatement sql = con.prepareStatement("UPDATE administrador SET nome = ?, cpf = ?, senha = ?  WHERE ID = ?;");
+            sql.setString(1, administrador.getNome());
+            sql.setString(2, administrador.getCpf());
+            sql.setString(3, administrador.getSenha());
+            sql.setInt(4, administrador.getId());
+            sql.executeUpdate();
+
+        } catch (SQLException ex) {
+            System.out.print(ex);
+            throw new RuntimeException("Query de update (alterar) incorreta");
+        } finally {
+            ConnectionFactory.closeConnection(con);
+        }
+    }
+    
     public ArrayList<Administrador> read(){
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;

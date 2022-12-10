@@ -50,19 +50,20 @@ public class descricaoDAO {
         
     }
     
-    public List<Descricao> read(){
+    public ArrayList<Descricao> read(String tabela){
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        List<Descricao> lista = new ArrayList<>();
+        ArrayList<Descricao> lista = new ArrayList<>();
         
         try {
-            stmt = con.prepareStatement("SELECT * FROM Consulta");
+            stmt = con.prepareStatement("SELECT * FROM " + tabela);
             rs = stmt.executeQuery();
             
             while (rs.next()) {
                 
                 Descricao desc = new Descricao();
+                desc.setId(rs.getInt("id"));
                 desc.setDescricao(rs.getString("descricao"));
                 lista.add(desc);                
             }

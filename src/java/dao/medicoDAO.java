@@ -48,8 +48,42 @@ public class medicoDAO {
         }finally{
             ConnectionFactory.closeConnection(con, stmt);
         }
-        
-        
+    }
+    
+    public void delete(Medico medico) throws Exception {
+        Connection con = ConnectionFactory.getConnection();
+        try {
+            PreparedStatement sql = con.prepareStatement("DELETE FROM medico WHERE ID = ?;");
+            sql.setInt(1, medico.getId());
+            sql.executeUpdate();
+
+        } catch (SQLException ex) {
+            System.out.print(ex);
+            throw new RuntimeException("Query de delete (excluir) incorreta");
+        } finally {
+            ConnectionFactory.closeConnection(con);
+        }
+    }
+    
+    public void update(Medico medico) throws Exception {
+        Connection con = ConnectionFactory.getConnection();
+        try {
+            PreparedStatement sql = con.prepareStatement("UPDATE medico SET nome = ?, cpf = ?, senha = ?, crm = ?, estadocrm = ?, autorizado = ?  WHERE ID = ?;");
+            sql.setString(1, medico.getNome());
+            sql.setString(2, medico.getCpf());
+            sql.setString(4, medico.getSenha());
+            sql.setInt(5, medico.getCrm());
+            sql.setString(6, medico.getEstadoCrm());
+            sql.setString(7, medico.getAutorizado());
+            sql.setInt(8, medico.getId());
+            sql.executeUpdate();
+
+        } catch (SQLException ex) {
+            System.out.print(ex);
+            throw new RuntimeException("Query de update (alterar) incorreta");
+        } finally {
+            ConnectionFactory.closeConnection(con);
+        }
     }
     
     public ArrayList<Medico> read(){

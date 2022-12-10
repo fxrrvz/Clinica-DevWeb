@@ -27,7 +27,15 @@ public class MedicoController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String acao = (String) request.getParameter("acao");
+        String acao = request.getParameter("acao");
+        int id = Integer.parseInt(request.getParameter("id"));
+        String nome = request.getParameter("nome");
+        String cpf = request.getParameter("cpf");
+        int crm = Integer.parseInt(request.getParameter("crm"));
+        String estadocrm = request.getParameter("estadocrm");
+        String autorizado = request.getParameter("autorizado");
+        int idespecialidade = Integer.parseInt(request.getParameter("especialidade"));
+        String senha = request.getParameter("senha");
         Medico usuario = new Medico();
         medicoDAO medicoDAO = new medicoDAO();
         RequestDispatcher rd;
@@ -50,12 +58,11 @@ public class MedicoController extends HttpServlet {
             case "Alterar":
             case "Excluir":
                 try {
-                    int id = Integer.parseInt(request.getParameter("id"));
                     usuario = medicoDAO.getMedico(id);
                     usuario.setId(id);
                 } catch (Exception ex) {
                     System.out.println(ex.getMessage());
-                    throw new RuntimeException("Falha em uma query para cadastro de usuario");
+                    throw new RuntimeException("Falha no Excluir Medico GET");
                 }
                 break;
 
@@ -74,6 +81,7 @@ public class MedicoController extends HttpServlet {
             throws ServletException, IOException {
         
         String acao = request.getParameter("acao");
+        int id = Integer.parseInt(request.getParameter("id"));
         String nome = request.getParameter("nome");
         String cpf = request.getParameter("cpf");
         int crm = Integer.parseInt(request.getParameter("crm"));
@@ -98,14 +106,14 @@ public class MedicoController extends HttpServlet {
                 break;
                 /*case "Excluir":
                     try {
-                        pacienteDAO pacienteDAO = new pacienteDAO();
-                        paciente = pacienteDAO.getPaciente(id);
+                        medicoDAO medicoDAO = new medicoDAO();
+                        medico = medicoDAO.getMedico(id);
                     } catch (Exception ex) {
                         System.out.println(ex.getMessage());
                         throw new RuntimeException("Falha em uma query para cadastro de usuario");
                     }
-                    break;
-                */    
+                    break;   
+                    */
             }
 
             request.setAttribute("msgError", "É necessário preencher todos os campos");
@@ -132,11 +140,11 @@ public class MedicoController extends HttpServlet {
                         rd.forward(request, response);
                         break;*/
                     case "Excluir":
-                        /*medicoDAO.delete(medico);
+                        medicoDAO.delete(medico);
                         request.setAttribute("msgOperacaoRealizada", "Exclusão realizada com sucesso");
-                        rd = request.getRequestDispatcher("/login.jsp");
+                        rd = request.getRequestDispatcher("/home.jsp");
                         rd.forward(request, response);
-                        break;*/
+                        break;
                     case "AdmIncluir":
                         medicoDAO.create(medico);
                         request.setAttribute("msgOperacaoRealizada", "Cadastro realizado com sucesso!");

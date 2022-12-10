@@ -79,6 +79,36 @@ public class consultaDAO {
         
     }
     
+    public ArrayList<Consulta> readAll(){
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        ArrayList<Consulta> lista = new ArrayList<>();
+        
+        try {
+            stmt = con.prepareStatement("SELECT * FROM consulta");
+            rs = stmt.executeQuery();
+            
+            while (rs.next()) {
+                
+                Consulta consulta = new Consulta();
+                consulta.setId(rs.getInt("id"));
+                consulta.setData(rs.getString("data"));
+                consulta.setDescricao(rs.getString("descricao"));
+                consulta.setRealizada(rs.getString("realizada"));
+                consulta.setIdMedico(rs.getInt("idmedico"));
+                consulta.setIdPaciente(rs.getInt("idpaciente"));
+                lista.add(consulta);                
+            }
+           
+        } catch (SQLException ex) {
+            Logger.getLogger(consultaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return lista;
+        
+    }
+    
     public Consulta getConsulta(int id) throws Exception {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt;
