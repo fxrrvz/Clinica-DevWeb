@@ -28,30 +28,30 @@
                     <div class="col-4"></div>
                     <div class="col-4">
                         <div class="row">
-                            <form class="form-group" action="MedicoController?acao=Excluir" method="POST">
+                            <form class="form-group" action="MedicoController?acao=Alterar" method="POST">
                                 <input type="hidden" name="id" value="<%=medico.getId()%>" />
                                 <div class="col-12">
-                                    <input type="text" name="nome" Readonly placeholder="Nome" value="<%=medico.getNome()%>" class=" form-control mb-3" />
+                                    <input type="text" name="nome" placeholder="Nome" value="<%=medico.getNome()%>" class=" form-control mb-3" />
                                 </div>
                                 <div class="col-12">
-                                    <input type="text" name="cpf" Readonly placeholder="CPF" value="<%=medico.getCpf()%>" class="form-control mb-3"/>
+                                    <input type="text" name="cpf" placeholder="CPF" value="<%=medico.getCpf()%>" class="form-control mb-3"/>
                                 </div>
                                 <div class="col-12">
-                                    <input type="number" name="crm" Readonly placeholder="CRM" value="<%=medico.getCrm()%>" class="form-control mb-3"/>
+                                    <input type="number" name="crm" placeholder="CRM" value="<%=medico.getCrm()%>" class="form-control mb-3"/>
                                 </div>
                                 <div class="col-12">
-                                    <input type="text" name="estadocrm" Readonly placeholder="Estado CRM" value="<%=medico.getEstadoCrm()%>" class="form-control mb-3"/>
+                                    <input type="text" name="estadocrm" placeholder="Estado CRM" value="<%=medico.getEstadoCrm()%>" class="form-control mb-3"/>
                                 </div>
                                 <div class="col-12">
-                                    <input type="text" name="autorizado" Readonly placeholder="Autorizado" value="<%=medico.getAutorizado()%>" class="form-control mb-3"/>
+                                    <input type="text" name="autorizado" placeholder="Autorizado" value="<%=medico.getAutorizado()%>" class="form-control mb-3"/>
                                 </div>
                                 <div class="col-12">
-                                    <input type="text" name="especialidade" Readonly placeholder="Especialidade" value="<%=medico.getIdEspecialidade()%>" class="form-control mb-3"/>
+                                    <input type="text" name="especialidade" placeholder="Especialidade" value="<%=medico.getIdEspecialidade()%>" class="form-control mb-3"/>
                                 </div>
                                 <div class="col-12">  
-                                    <input type="password" name="senha" Readonly placeholder="Senha" value="<%=medico.getSenha()%>" class="form-control mb-3"/>
-                                </div>  
-                                <button type="submit" class="btn btn-primary mt-1" style="background-color: #6610f2">Excluir</button>
+                                    <input type="password" name="senha" placeholder="Senha" value="<%=medico.getSenha()%>" class="form-control mb-3"/>
+                                </div>
+                                <button type="submit" class="btn btn-primary mt-1" style="background-color: #6610f2">Alterar</button>
                             </form>
                         </div>
                     </div>

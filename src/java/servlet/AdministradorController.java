@@ -124,6 +124,7 @@ public class AdministradorController extends HttpServlet {
                     case "Alterar":
                         try {
                             int id = Integer.parseInt(request.getParameter("id"));
+                            administrador.setId(id);
                             administradorDAO.update(administrador);
                         } catch (Exception ex) {
                             Logger.getLogger(PacienteController.class.getName()).log(Level.SEVERE, null, ex);

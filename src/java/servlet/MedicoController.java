@@ -149,11 +149,14 @@ public class MedicoController extends HttpServlet {
                     case "Alterar":
                         try {
                             int id = Integer.parseInt(request.getParameter("id"));
+                            medico.setId(id);
                             medicoDAO.update(medico);
+                            rd = request.getRequestDispatcher("/home.jsp");
+                            request.setAttribute("msgOperacaoRealizada", "Alteração realizada com sucesso");
+                            rd.forward(request, response);
                         } catch (Exception ex) {
                             Logger.getLogger(PacienteController.class.getName()).log(Level.SEVERE, null, ex);
                         }
-                        request.setAttribute("msgOperacaoRealizada", "Alteração realizada com sucesso");
                         break;
                     case "Excluir":
                         try {
