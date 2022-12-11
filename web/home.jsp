@@ -293,8 +293,8 @@
                                 out.println("<th>" + paciente.getCpf() + "</th>");
                                 out.println("<th>" + paciente.getAutorizado() + "</th>");
                                 out.println("<th>" + paciente.getIdTipoPlano() + "</th>");%>
-                            <td><a href="TipoPlanoServlet?acao=Excluir&id=<%=paciente.getId()%>" type="submit" name="acao" class="btn btn-danger">Excluir</button></td>
-                            <td><a href="TipoPlanoServlet?acao=Alterar&id=<%=paciente.getId()%>" type="submit" name="acao" class="btn btn-warning">Alterar</a></td>
+                            <td><a href="PacienteController?acao=Excluir&id=<%=paciente.getId()%>" type="submit" name="acao" class="btn btn-danger">Excluir</button></td>
+                            <td><a href="PacienteController?acao=Alterar&id=<%=paciente.getId()%>" type="submit" name="acao" class="btn btn-warning">Alterar</a></td>
                         <%      out.println("</tr>");
                             }
                             out.println("</tbody>");

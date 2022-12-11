@@ -93,6 +93,8 @@ public class pacienteDAO {
                     paciente.setId(Integer.parseInt(resultado.getString("ID")));
                     paciente.setNome(resultado.getString("NOME"));
                     paciente.setCpf(resultado.getString("CPF"));
+                    paciente.setAutorizado(resultado.getString("AUTORIZADO"));
+                    paciente.setIdTipoPlano(Integer.parseInt(resultado.getString("IDTIPOPLANO")));
                     paciente.setSenha(resultado.getString("SENHA"));
                 }
             }
@@ -112,10 +114,10 @@ public class pacienteDAO {
             PreparedStatement sql = con.prepareStatement("UPDATE paciente SET nome = ?, cpf = ?, senha = ?, autorizado = ?, idtipoplano = ?  WHERE ID = ?;");
             sql.setString(1, paciente.getNome());
             sql.setString(2, paciente.getCpf());
-            sql.setString(4, paciente.getSenha());
-            sql.setString(5, paciente.getAutorizado());
-            sql.setInt(6, paciente.getIdTipoPlano());
-            sql.setInt(7, paciente.getId());
+            sql.setString(3, paciente.getSenha());
+            sql.setString(4, paciente.getAutorizado());
+            sql.setInt(5, paciente.getIdTipoPlano());
+            sql.setInt(6, paciente.getId());
             sql.executeUpdate();
 
         } catch (SQLException ex) {
@@ -126,11 +128,11 @@ public class pacienteDAO {
         }
     }
 
-    public void delete(Paciente paciente) throws Exception {
+    public void delete(int id) throws Exception {
         Connection con = ConnectionFactory.getConnection();
         try {
             PreparedStatement sql = con.prepareStatement("DELETE FROM paciente WHERE ID = ?;");
-            sql.setInt(1, paciente.getId());
+            sql.setInt(1, id);
             sql.executeUpdate();
 
         } catch (SQLException ex) {

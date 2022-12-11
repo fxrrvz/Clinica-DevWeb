@@ -16,6 +16,22 @@
     </head>
     <body>
         <div>
+            <%
+                String acao;
+                try{
+                    String perfil = (String) session.getAttribute("perfil");
+                    
+                    if (perfil.equals("administrador")){
+                        acao = "AdmIncluir";
+                    } else {
+                        acao = "Incluir";
+                    }
+                } catch (Exception ex) {
+                    acao = "Incluir";
+                    System.out.println(ex.getMessage());
+                    //throw new RuntimeException("Falha cadastro paciente perfil");
+                }
+                %>
             <h1>Cadastrar paciente</h1>
             <div class="container text-center">
                 <div class="row mt-5">
@@ -30,7 +46,7 @@
                                    <%= msgError %>
                                 </div>
                             <% }%>
-                            <form class="form-group" action="PacienteController?acao=Incluir" method="POST">
+                            <form class="form-group" action="PacienteController?acao=<%= acao%>" method="POST">
                                 <div class="col-12">
                                     <input type="text" placeholder="Nome" name="nome" class=" form-control mb-3" />
                                 </div>
