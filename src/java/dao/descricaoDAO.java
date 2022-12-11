@@ -5,6 +5,7 @@
  */
 package dao;
 
+import aplicacao.Administrador;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,7 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import aplicacao.Descricao;
 import connection.ConnectionFactory;
 /**
@@ -76,6 +76,57 @@ public class descricaoDAO {
         
     }
     
+    public Descricao getDescricao(int id, String tabela) throws Exception {
+        Connection con = ConnectionFactory.getConnection();
+        try {
+            Descricao desc = new Descricao();
+            PreparedStatement stmt = con.prepareStatement("SELECT * FROM "+tabela+" WHERE ID = ? ");
+            stmt.setInt(1, id);
+            ResultSet resultado = stmt.executeQuery();
+            if (resultado != null) {
+                while (resultado.next()) {
+                    desc.setId(Integer.parseInt(resultado.getString("ID")));
+                    desc.setDescricao(resultado.getString("DESCRICAO"));
+                }
+            }
+            return desc;
+        } catch (SQLException e) {
+            throw new RuntimeException("Query de select (get) incorreta");
+        } finally {
+            ConnectionFactory.closeConnection(con);
+        }
+    }
+    
+    public void delete(int id, String tabela) throws Exception {
+        Connection con = ConnectionFactory.getConnection();
+        try {
+            PreparedStatement sql = con.prepareStatement("DELETE FROM "+tabela+" WHERE ID = ?;");
+            sql.setInt(1, id);
+            sql.executeUpdate();
+
+        } catch (SQLException ex) {
+            System.out.print(ex);
+            throw new RuntimeException("Query de delete (excluir) incorreta");
+        } finally {
+            ConnectionFactory.closeConnection(con);
+        }
+    }
+    
+    public void update(Descricao descricao, String tabela) throws Exception {
+        Connection con = ConnectionFactory.getConnection();
+        try {
+            PreparedStatement sql = con.prepareStatement("UPDATE "+tabela+" SET descricao = ? WHERE ID = ?;");
+            sql.setString(1, descricao.getDescricao());
+            sql.setInt(2, descricao.getId());
+            sql.executeUpdate();
+
+        } catch (SQLException ex) {
+            System.out.print(ex);
+            throw new RuntimeException("Query de update (alterar) incorreta");
+        } finally {
+            ConnectionFactory.closeConnection(con);
+        }
+    }
     
 }
 

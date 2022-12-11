@@ -12,6 +12,8 @@ import aplicacao.Usuario;
 import dao.descricaoDAO;
 import dao.pacienteDAO;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -29,6 +31,67 @@ public class DescricaoController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String acao = (String) request.getParameter("acao");
+
+        Descricao descricao = new Descricao();
+        descricaoDAO descricaoDAO = new descricaoDAO();
+        String tabela = request.getParameter("tabela");
+        RequestDispatcher rd;
+        String cadastro = "";
+        String altera = "";
+        String exclui = "";
+        switch (tabela){
+            case "especialidade":
+                cadastro = "clinicaEspecialidade.jsp"; 
+                altera = "/view/usuario/alteraEspecialidade.jsp";
+                exclui = "/view/usuario/excluiEspecialidade.jsp";
+                break;
+            case "tipoplano":
+                cadastro = "cadastroPlano.jsp";
+                altera = "/view/usuario/alteraPlano.jsp";
+                exclui = "/view/usuario/excluiPlano.jsp";
+                break;
+            case "tipoexame":
+                cadastro = "cadastroTipoExame.jsp";
+                altera = "/view/usuario/alteraTipoExame.jsp";
+                exclui = "/view/usuario/excluiTipoExame.jsp";
+                break;
+        }
+        switch (acao) {
+            case "Incluir":
+                rd = request.getRequestDispatcher(cadastro);
+                break;
+            case "Alterar":
+                try {
+                    int id = Integer.parseInt(request.getParameter("id"));
+                    descricao = descricaoDAO.getDescricao(id, tabela);
+                    descricao.setId(id);
+                    rd = request.getRequestDispatcher(altera);
+                } catch (Exception ex) {
+                    System.out.println(ex.getMessage());
+                    throw new RuntimeException("Falha get descricao controller");
+                }
+                break;
+            case "Excluir":
+                try {
+                    int id = Integer.parseInt(request.getParameter("id"));
+                    descricao = descricaoDAO.getDescricao(id, tabela);
+                    descricao.setId(id);
+                    rd = request.getRequestDispatcher(exclui);
+                } catch (Exception ex) {
+                    System.out.println(ex.getMessage());
+                    throw new RuntimeException("Falha no get descricao controller");
+                }
+                break;
+                default: rd = request.getRequestDispatcher("");
+                break;
+        }
+        request.setAttribute("descricao", descricao);
+        request.setAttribute("msgError", "");
+        request.setAttribute("acao", acao);
+
+        
+        rd.forward(request, response);
     }
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -54,6 +117,9 @@ public class DescricaoController extends HttpServlet {
             switch (acao) {
                 case "Incluir":
                     request.setAttribute("acao", "Incluir");
+                    break;
+                case "Alterar":
+                    request.setAttribute("acao", "Incluir");
                     break; 
             }
 
@@ -72,11 +138,22 @@ public class DescricaoController extends HttpServlet {
                         request.setAttribute("msgOperacaoRealizada", "Cadastro realizado com sucesso!");
                         break;
                     case "Alterar":
-                        //pacienteDAO.update(paciente);
+                        try {
+                            int id = Integer.parseInt(request.getParameter("id"));
+                            desc.setId(id);
+                            dao.update(desc, tabela);
+                        } catch (Exception ex) {
+                            Logger.getLogger(PacienteController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                         request.setAttribute("msgOperacaoRealizada", "Alteração realizada com sucesso");
                         break;
                     case "Excluir":
-                        //pacienteDAO.delete(paciente);
+                        try {
+                            int id = Integer.parseInt(request.getParameter("id"));
+                            dao.delete(id, tabela);
+                        } catch (Exception ex) {
+                            Logger.getLogger(DescricaoController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                         request.setAttribute("msgOperacaoRealizada", "Exclusão realizada com sucesso");
                         break;
                 }

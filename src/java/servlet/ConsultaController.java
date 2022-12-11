@@ -12,6 +12,8 @@ import dao.consultaDAO;
 import dao.examesDAO;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -45,6 +47,7 @@ public class ConsultaController extends HttpServlet {
                     request.setAttribute("msgOperacaoRealizada", "");
                     request.setAttribute("listaConsultas", listaConsultas);
                     rd = request.getRequestDispatcher(home);
+                    request.setAttribute("consulta", consulta);
                     rd.forward(request, response);
 
                 } catch (IOException | ServletException ex) {
@@ -53,30 +56,42 @@ public class ConsultaController extends HttpServlet {
                 
                 }
                 break;
-            case "Alterar":
             case "RealizarConsulta":
                 try {
                     request.setAttribute("idconsulta", idconsulta);
                     rd = request.getRequestDispatcher("realizaConsulta.jsp");
+                    request.setAttribute("consulta", consulta);
                 } catch (Exception ex) {
                     System.out.println(ex.getMessage()+"\n");
                     throw new RuntimeException("Falha servlet Realizar Consulta GET");
                 }
                 break;
-            case "Excluir":
-                /*try {
+            case "Alterar":
+                try {
+                    int id = Integer.parseInt(request.getParameter("id"));
                     consulta = consultaDAO.getConsulta(id);
                     consulta.setId(id);
+                    rd = request.getRequestDispatcher("/view/usuario/alteraConsulta.jsp");
                 } catch (Exception ex) {
-                    System.out.println(ex.getMessage()+"\n");
-                    throw new RuntimeException("Falha em uma query para cadastro da consulta");
+                    System.out.println(ex.getMessage());
+                    throw new RuntimeException("Falha em uma query para alteracao de administrador");
                 }
-                break;*/ 
+                break;
+            case "Excluir":
+                try {
+                    int id = Integer.parseInt(request.getParameter("id"));
+                    consulta = consultaDAO.getConsulta(id);
+                    consulta.setId(id);
+                    rd = request.getRequestDispatcher("/view/usuario/excluiConsulta.jsp");
+                } catch (Exception ex) {
+                    System.out.println(ex.getMessage());
+                    throw new RuntimeException("Falha em uma query para cadastro de administrador");
+                }
+                break;
             default:
                 rd = request.getRequestDispatcher(home);
                 break;
         }
-        request.setAttribute("consulta", consulta);
         request.setAttribute("msgError", "");
         request.setAttribute("acao", acao);
         rd.forward(request, response);
@@ -128,7 +143,7 @@ public class ConsultaController extends HttpServlet {
                 realizada = request.getParameter("realizada");
                 data_user = request.getParameter("data");
                 horario_user = request.getParameter("horario");
-                data_hora = data_user + " " + horario_user;
+                data_hora = data_user;
                 break;
         }
         acao = request.getParameter("acao");
@@ -144,7 +159,13 @@ public class ConsultaController extends HttpServlet {
                     request.setAttribute("msgError", "É necessário preencher todos os campos");
                     break;
                 case "Alterar":
+                    request.setAttribute("acao", "Alterar");
+                    request.setAttribute("msgError", "É necessário preencher todos os campos");
+                    break;
                 case "RealizarConsulta":
+                    request.setAttribute("acao", "RealizarConsulta");
+                    request.setAttribute("msgError", "É necessário preencher todos os campos");
+                    break;
                 case "Excluir":
                     request.setAttribute("acao", "Excluir");
                     request.setAttribute("msgError", "valor 0 ou nulo");
@@ -170,13 +191,7 @@ public class ConsultaController extends HttpServlet {
                         request.setAttribute("msgOperacaoRealizada", "Cadastro realizado com sucesso!");
                         rd = request.getRequestDispatcher("home.jsp");
                         break;
-                    case "Alterar":
-                        consultaDAO.update(consulta);
-                        consultas = (ArrayList<Consulta>) consultaDAO.read(usuarioLogado.getId());
-                        request.setAttribute("consulta", consultas);
-                        request.setAttribute("msgOperacaoRealizada", "Alteração realizada com sucesso");
-                        rd = request.getRequestDispatcher("home.jsp");
-                        break;
+                    
                     case "RealizarConsulta":
                         consultaDAO.realizaConsulta(Integer.parseInt(idconsulta), descricao_user);
                         if(!idtipoexame.equals("")){
@@ -188,12 +203,24 @@ public class ConsultaController extends HttpServlet {
                         request.setAttribute("msgOperacaoRealizada", "Consulta realizada com sucesso");
                         rd = request.getRequestDispatcher("home.jsp");
                         break;
+                    case "Alterar":
+                        try {
+                            int id = Integer.parseInt(request.getParameter("id"));
+                            consulta.setId(id);
+                            consultaDAO.update(consulta);
+                        } catch (Exception ex) {
+                            Logger.getLogger(PacienteController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        request.setAttribute("msgOperacaoRealizada", "Alteração realizada com sucesso");
+                        break;
                     case "Excluir":
-                        consultaDAO.delete(idconsulta);
-                        consultas = (ArrayList<Consulta>) consultaDAO.read(usuarioLogado.getId());
-                        request.setAttribute("consulta", consultas);
+                        try {
+                            int id = Integer.parseInt(request.getParameter("id"));
+                            consultaDAO.delete(id);
+                        } catch (Exception ex) {
+                            Logger.getLogger(PacienteController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                         request.setAttribute("msgOperacaoRealizada", "Exclusão realizada com sucesso");
-                        rd = request.getRequestDispatcher("home.jsp");
                         break;
                 
                 }

@@ -143,10 +143,10 @@ public class consultaDAO {
             PreparedStatement sql = con.prepareStatement("UPDATE consulta SET data = ?, descricao = ?, realizada = ?, idmedico = ?, idpaciente = ?  WHERE ID = ?;");
             sql.setString(1, consulta.getData());
             sql.setString(2, consulta.getDescricao());
-            sql.setString(4, consulta.getRealizada());
-            sql.setInt(5, consulta.getIdMedico());
-            sql.setInt(6, consulta.getIdPaciente());
-            sql.setInt(7, consulta.getId());
+            sql.setString(3, consulta.getRealizada());
+            sql.setInt(4, consulta.getIdMedico());
+            sql.setInt(5, consulta.getIdPaciente());
+            sql.setInt(6, consulta.getId());
             sql.executeUpdate();
 
         } catch (SQLException ex) {
@@ -174,11 +174,11 @@ public class consultaDAO {
         }
     }
     
-    public void delete(String id) throws Exception {
+    public void delete(int id) throws Exception {
         Connection con = ConnectionFactory.getConnection();
         try {
             PreparedStatement sql = con.prepareStatement("DELETE FROM consulta WHERE ID = ?;");
-            sql.setString(1, id);
+            sql.setInt(1, id);
             sql.executeUpdate();
 
         } catch (SQLException ex) {

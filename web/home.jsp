@@ -56,9 +56,9 @@
                                 <li class="nav-item">
                                     <a class="nav-link" style="margin-right:30px;" href="clinicaEspecialidade.jsp">Cadastrar especialidade</a>
                                 </li>
-                                <li class="nav-item">
+                                <!--li class="nav-item">
                                     <a class="nav-link" style="margin-right:30px;" href="cadastroTipoExame.jsp">Cadastrar Tipo Exame</a>
-                                </li>
+                                </li-->
                                 <li class="nav-item">
                                     <a class="nav-link" style="margin-right:30px;" href="cadastroPlano.jsp">Cadastrar Tipo Plano</a>
                                 </li>
@@ -134,7 +134,7 @@
                                         out.println("</tr>");
                                     break;
                                     
-                                    
+                                // LISTA ESPECIALIDADE    
                                     case "administrador" :%>
                                     <tr>
                                       <th scope="col">#</th>
@@ -153,8 +153,8 @@
                                 out.println("<th>" + especialidade.getId() + "</th>");
                                 out.println("<th>" + especialidade.getDescricao() + "</th>");%>
 
-                            <td><a href="TipoPlanoServlet?acao=Excluir&id=<%=especialidade.getId()%>" type="submit" name="acao" class="btn btn-danger">Excluir</button></td>
-                            <td><a href="TipoPlanoServlet?acao=Alterar&id=<%=especialidade.getId()%>" type="submit" name="acao" class="btn btn-warning">Alterar</a></td>
+                            <td><a href="DescricaoController?acao=Excluir&tabela=especialidade&id=<%=especialidade.getId()%>" type="submit" name="acao" class="btn btn-danger">Excluir</button></td>
+                            <td><a href="DescricaoController?acao=Alterar&tabela=especialidade&id=<%=especialidade.getId()%>" type="submit" name="acao" class="btn btn-warning">Alterar</a></td>
 
                         <%      out.println("</tr>");
                             }
@@ -174,8 +174,8 @@
                                 out.println("<th>" + plano.getId() + "</th>");
                                 out.println("<th>" + plano.getDescricao() + "</th>");%>
 
-                            <td><a href="TipoPlanoServlet?acao=Excluir&id=<%=plano.getId()%>" type="submit" name="acao" class="btn btn-danger">Excluir</button></td>
-                            <td><a href="TipoPlanoServlet?acao=Alterar&id=<%=plano.getId()%>" type="submit" name="acao" class="btn btn-warning">Alterar</a></td>
+                            <td><a href="DescricaoController?acao=Excluir&tabela=tipoplano&id=<%=plano.getId()%>" type="submit" name="acao" class="btn btn-danger">Excluir</button></td>
+                            <td><a href="DescricaoController?acao=Alterar&tabela=tipoplano&id=<%=plano.getId()%>" type="submit" name="acao" class="btn btn-warning">Alterar</a></td>
 
                         <%      out.println("</tr>");
                             }
@@ -191,8 +191,6 @@
                                 <th scope="col">#ID Exame</th>
                                 <th scope="col">ID Tipo Exame</th>
                                 <th scope="col">ID Consulta</th>
-                                <th scope="col">Excluir</th>
-                                <th scope="col">Alterar</th>
                               </tr>
                         <%  
                             examesDAO examesDAO = new examesDAO();
@@ -201,12 +199,9 @@
                                 out.println("<tr>");
                                 out.println("<th>" + exames.getId() + "</th>");
                                 out.println("<th>" + exames.getIdTipoExame() + "</th>");
-                                out.println("<th>" + exames.getIdConsulta() + "</th>");%>
+                                out.println("<th>" + exames.getIdConsulta() + "</th>");
 
-                            <td><a href="TipoPlanoServlet?acao=Excluir&id=<%=exames.getId()%>" type="submit" name="acao" class="btn btn-danger">Excluir</button></td>
-                            <td><a href="TipoPlanoServlet?acao=Alterar&id=<%=exames.getId()%>" type="submit" name="acao" class="btn btn-warning">Alterar</a></td>
-
-                        <%      out.println("</tr>");
+                             out.println("</tr>");
                             }
                             out.println("</tbody>");
                             out.println("</table>");
@@ -221,6 +216,8 @@
                                 <th scope="col">Realizada</th>
                                 <th scope="col">IdMedico</th>
                                 <th scope="col">IdPaciente</th>
+                                <th scope="col">Excluir</th>
+                                <th scope="col">Alterar</th>
                               </tr>
                         <%
                             consultaDAO consultaDAO = new consultaDAO();
@@ -233,6 +230,8 @@
                                 out.println("<th>" + con.getRealizada() + "</th>");
                                 out.println("<th>" + con.getIdMedico() + "</th>");
                                 out.println("<th>" + con.getIdPaciente() + "</th>");%>
+                            <td><a href="ConsultaController?acao=Excluir&id=<%=con.getId()%>" type="submit" name="acao" class="btn btn-danger">Excluir</button></td>
+                            <td><a href="ConsultaController?acao=Alterar&id=<%=con.getId()%>" type="submit" name="acao" class="btn btn-warning">Alterar</a></td>
 
                         <%      out.println("</tr>");
                             }

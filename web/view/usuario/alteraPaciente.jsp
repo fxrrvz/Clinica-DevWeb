@@ -35,10 +35,10 @@
                                     <input type="text" placeholder="Nome" name="nome" value="<%= paciente.getNome()%>" class=" form-control mb-3" />
                                 </div>
                                 <div class="col-12">
-                                    <input type="text" placeholder="CPF" name="cpf" value="<%= paciente.getCpf()%>" class="form-control mb-3"/>
+                                    <input type="text" placeholder="CPF" name="cpf"  value="<%= paciente.getCpf()%>" class="form-control mb-3"/>
                                 </div>
                                 <div class="col-12">
-                                    <input type="text" placeholder="Autorizado" name="autorizado" Readonly value="<%= paciente.getAutorizado()%>" class="form-control mb-3"/>
+                                    <input type="text" placeholder="Autorizado" name="autorizado" value="<%= paciente.getAutorizado()%>" class="form-control mb-3"/>
                                 </div>
                                 <div class="col-12">
                                     <input type="text" placeholder="Tipo plano" name="idtipoplano" value="<%= paciente.getIdTipoPlano()%>" class="form-control mb-3"/>

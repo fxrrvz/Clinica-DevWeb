@@ -59,6 +59,14 @@ public class PacienteController extends HttpServlet {
                     throw new RuntimeException("Falha no get cadastroPaciente ");
                 }
                 break;
+            case "AdmIncluir":
+                try{
+                    rd = request.getRequestDispatcher("/view/usuario/cadastroPaciente.jsp");
+                } catch (Exception ex) {
+                    System.out.println(ex.getMessage());
+                    throw new RuntimeException("Falha no get cadastroPaciente ");
+                }
+                break;
             case "Alterar":
                 try {
                     int id = Integer.parseInt(request.getParameter("id"));
@@ -152,7 +160,9 @@ public class PacienteController extends HttpServlet {
                     case "Alterar":
                         try {
                             int id = Integer.parseInt(request.getParameter("id"));
+                            String autorizado = request.getParameter("autorizado");
                             paciente.setId(id);
+                            paciente.setAutorizado(autorizado);
                             pacienteDAO.update(paciente);
                             rd = request.getRequestDispatcher("/home.jsp");
                             request.setAttribute("msgOperacaoRealizada", "Alteração realizada com sucesso");
