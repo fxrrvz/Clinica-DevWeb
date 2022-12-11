@@ -28,18 +28,18 @@
                 <div class="col-4"></div>
                 <div class="col-4">
                     <div class="row">
-                        <form class="form-group" action="AdministradorController?acao=Excluir" method="POST">
+                        <form class="form-group" action="AdministradorController?acao=Alterar" method="POST">
                             <input type="hidden" name="id" value="<%= id%>"/>
                             <div class="col-12">
-                                <input type="text" name="nome" value="<%= adm.getNome()%>" Readonly placeholder="Nome" class=" form-control mb-3" />
+                                <input type="text" name="nome" value="<%= adm.getNome()%>" placeholder="Nome" class=" form-control mb-3" />
                             </div>
                             <div class="col-12">
-                                <input type="text" name="cpf" value="<%= adm.getCpf()%>" Readonly placeholder="CPF" class="form-control mb-3"/>
+                                <input type="text" name="cpf" value="<%= adm.getCpf()%>" placeholder="CPF" class="form-control mb-3"/>
                             </div>            
                             <div class="col-12">  
-                                <input type="password" name="senha" value="<%= adm.getSenha()%>" Readonly placeholder="Senha" class="form-control mb-3"/>
+                                <input type="password" name="senha" value="<%= adm.getSenha()%>" placeholder="Senha" class="form-control mb-3"/>
                             </div>
-                            <button type="submit" class="btn btn-primary mt-3" style="background-color: #6610f2">Excluir</button>
+                            <button type="submit" class="btn btn-primary mt-3" style="background-color: #6610f2">Alterar</button>
                             <a href="home.jsp" class="btn btn-primary mt-3" style="background-color: #6610f2">Voltar</a>
                         </form>
                     </div>

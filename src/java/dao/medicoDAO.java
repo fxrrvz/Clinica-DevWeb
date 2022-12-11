@@ -13,7 +13,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import aplicacao.Medico;
 import connection.ConnectionFactory;
 /**
@@ -40,7 +39,7 @@ public class medicoDAO {
             
             stmt.executeUpdate();
             
-            JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
+            System.out.print("Salvo com sucesso!");
             
         } catch (SQLException ex) {
             System.out.print(ex);
@@ -50,11 +49,11 @@ public class medicoDAO {
         }
     }
     
-    public void delete(Medico medico) throws Exception {
+    public void delete(int id) throws Exception {
         Connection con = ConnectionFactory.getConnection();
         try {
             PreparedStatement sql = con.prepareStatement("DELETE FROM medico WHERE ID = ?;");
-            sql.setInt(1, medico.getId());
+            sql.setInt(1, id);
             sql.executeUpdate();
 
         } catch (SQLException ex) {

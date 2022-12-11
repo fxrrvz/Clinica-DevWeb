@@ -48,11 +48,11 @@ public class administradorDAO {
         
     }
     
-    public void delete(Administrador administrador) throws Exception {
+    public void delete(int id) throws Exception {
         Connection con = ConnectionFactory.getConnection();
         try {
             PreparedStatement sql = con.prepareStatement("DELETE FROM administrador WHERE ID = ?;");
-            sql.setInt(1, administrador.getId());
+            sql.setInt(1, id);
             sql.executeUpdate();
 
         } catch (SQLException ex) {
@@ -115,7 +115,7 @@ public class administradorDAO {
         Connection con = ConnectionFactory.getConnection();
         try {
             Administrador adm = new Administrador();
-            PreparedStatement stmt = con.prepareStatement("SELECT * FROM usuarios WHERE ID = ? ");
+            PreparedStatement stmt = con.prepareStatement("SELECT * FROM administrador WHERE ID = ? ");
             stmt.setInt(1, id);
             ResultSet resultado = stmt.executeQuery();
             if (resultado != null) {

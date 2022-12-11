@@ -264,8 +264,8 @@
                                 out.println("<th>" + med.getCpf() + "</th>");
                                 out.println("<th>" + med.getAutorizado() + "</th>");
                                 out.println("<th>" + med.getIdEspecialidade() + "</th>");%>
-                            <td><a href="TipoPlanoServlet?acao=Excluir&id=<%=med.getId()%>" type="submit" name="acao" class="btn btn-danger">Excluir</button></td>
-                            <td><a href="TipoPlanoServlet?acao=Alterar&id=<%=med.getId()%>" type="submit" name="acao" class="btn btn-warning">Alterar</a></td>
+                            <td><a href="MedicoController?acao=Excluir&id=<%=med.getId()%>" type="submit" name="acao" class="btn btn-danger">Excluir</button></td>
+                            <td><a href="MedicoController?acao=Alterar&id=<%=med.getId()%>" type="submit" name="acao" class="btn btn-warning">Alterar</a></td>
                         <%      out.println("</tr>");
                             }
                             out.println("</tbody>");
@@ -318,8 +318,8 @@
                                 out.println("<th>" + adm.getId() + "</th>");
                                 out.println("<th>" + adm.getNome() + "</th>");
                                 out.println("<th>" + adm.getCpf() + "</th>");%>
-                            <td><a href="TipoPlanoServlet?acao=Excluir&id=<%=adm.getId()%>" type="submit" name="acao" class="btn btn-danger">Excluir</button></td>
-                            <td><a href="TipoPlanoServlet?acao=Alterar&id=<%=adm.getId()%>" type="submit" name="acao" class="btn btn-warning">Alterar</a></td>
+                            <td><a href="AdministradorController?acao=Excluir&id=<%=adm.getId()%>" type="submit" name="acao" class="btn btn-danger">Excluir</button></td>
+                            <td><a href="AdministradorController?acao=Alterar&id=<%=adm.getId()%>" type="submit" name="acao" class="btn btn-warning">Alterar</a></td>
                         <%      out.println("</tr>");
                             }
                             out.println("</tbody>");

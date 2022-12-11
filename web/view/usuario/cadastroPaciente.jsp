@@ -23,13 +23,6 @@
                     <div class="col-4">
                         <div class="row">
                             <%
-                            String perfil = (String) session.getAttribute("perfil");
-                            String acao;
-                            if (perfil.equals("administrador")){
-                                acao = "AdmIncluir";
-                            }else{
-                                acao = "Incluir";
-                            }
                             
                             String msgError = (String) request.getAttribute("msgError");
                             if ((msgError != null) && (!msgError.isEmpty())) {%>
@@ -37,7 +30,7 @@
                                    <%= msgError %>
                                 </div>
                             <% }%>
-                            <form class="form-group" action="PacienteController?acao=<%= acao %>" method="POST">
+                            <form class="form-group" action="PacienteController?acao=Incluir" method="POST">
                                 <div class="col-12">
                                     <input type="text" placeholder="Nome" name="nome" class=" form-control mb-3" />
                                 </div>

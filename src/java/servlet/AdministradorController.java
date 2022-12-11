@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import dao.administradorDAO;
 import aplicacao.Administrador;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 
 @WebServlet(name = "AdministradorController", urlPatterns = {"/AdministradorController"})
@@ -24,37 +26,39 @@ public class AdministradorController extends HttpServlet {
         administradorDAO administradorDAO = new administradorDAO();
         RequestDispatcher rd;
         switch (acao) {
-            case "Listar":
-                try {
-                    ArrayList<Administrador> lista_administrador = administradorDAO.read();
-                    request.setAttribute("msgOperacaoRealizada", "");
-                    request.setAttribute("lista_administrador", lista_administrador);
-                    rd = request.getRequestDispatcher("/view/administrador/listaadministrador.jsp");
-                    rd.forward(request, response);
-
-                } catch (IOException | ServletException ex) {
-                    System.out.println(ex.getMessage());
-                    throw new RuntimeException("Falha na query listar administradors (administrador) ");
-                }
+            case "AdmIncluir":
+                rd = request.getRequestDispatcher("/view/usuario/cadastroAdmin.jsp");
                 break;
             case "Alterar":
+                try {
+                    int id = Integer.parseInt(request.getParameter("id"));
+                    administrador = administradorDAO.getAdministrador(id);
+                    administrador.setId(id);
+                    rd = request.getRequestDispatcher("/view/usuario/alteraAdmin.jsp");
+                } catch (Exception ex) {
+                    System.out.println(ex.getMessage());
+                    throw new RuntimeException("Falha em uma query para alteracao de administrador");
+                }
+                break;
             case "Excluir":
                 try {
                     int id = Integer.parseInt(request.getParameter("id"));
                     administrador = administradorDAO.getAdministrador(id);
                     administrador.setId(id);
+                    rd = request.getRequestDispatcher("/view/usuario/excluiAdmin.jsp");
                 } catch (Exception ex) {
                     System.out.println(ex.getMessage());
                     throw new RuntimeException("Falha em uma query para cadastro de administrador");
                 }
                 break;
-
+                default: rd = request.getRequestDispatcher("");
+                break;
         }
         request.setAttribute("administrador", administrador);
         request.setAttribute("msgError", "");
         request.setAttribute("acao", acao);
 
-        rd = request.getRequestDispatcher(view);
+        
         rd.forward(request, response);
 
     }
@@ -63,7 +67,7 @@ public class AdministradorController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        //int id = Integer.parseInt(request.getParameter("id"));
+        
         String nome_user = request.getParameter("nome");
         String cpf_user = request.getParameter("cpf");
         String senha_user = request.getParameter("senha");
@@ -90,12 +94,20 @@ public class AdministradorController extends HttpServlet {
                     break;*/
                 case "AdmIncluir":
                     request.setAttribute("acao", "AdmIncluir");
+                    rd = request.getRequestDispatcher(view);
+                    break;
+                    
+                case "Excluir":
+                    request.setAttribute("acao", "Excluir");
+                    rd = request.getRequestDispatcher("/view/usuario/excluiAdmin.jsp");
+                    break;
+                default:
+                    rd = request.getRequestDispatcher("");
+                    break;
             }
 
             request.setAttribute("msgError", "É necessário preencher todos os campos");
             request.setAttribute("administrador", administrador);
-
-            rd = request.getRequestDispatcher(view);
             rd.forward(request, response);
 
         } else {
@@ -110,11 +122,21 @@ public class AdministradorController extends HttpServlet {
                         request.setAttribute("msgOperacaoRealizada", "Inclusão realizada com sucesso");
                         break;
                     case "Alterar":
-                        administradorDAO.create(administrador);
+                        try {
+                            int id = Integer.parseInt(request.getParameter("id"));
+                            administradorDAO.update(administrador);
+                        } catch (Exception ex) {
+                            Logger.getLogger(PacienteController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                         request.setAttribute("msgOperacaoRealizada", "Alteração realizada com sucesso");
                         break;
                     case "Excluir":
-                        administradorDAO.create(administrador);
+                        try {
+                            int id = Integer.parseInt(request.getParameter("id"));
+                            administradorDAO.delete(id);
+                        } catch (Exception ex) {
+                            Logger.getLogger(PacienteController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                         request.setAttribute("msgOperacaoRealizada", "Exclusão realizada com sucesso");
                         break;
                     case "AdmIncluir":
@@ -122,9 +144,6 @@ public class AdministradorController extends HttpServlet {
                         request.setAttribute("msgOperacaoRealizada", "Inclusão realizada com sucesso");
                         break;
                 }
-
-                ArrayList<Administrador> listaadministrador = administradorDAO.read();
-                request.setAttribute("listaadministrador", listaadministrador);
 
                 rd = request.getRequestDispatcher("/home.jsp");
                 rd.forward(request, response);
